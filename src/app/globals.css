@@ -1,0 +1,219 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  TokenScore tokens
+  - paper: 수표지 같은 연녹회색 바탕. 화면 전체의 기본 면.
+  - compute(앰버): 토큰·GPU 사용량과 비용에만 씁니다.
+  - money(그린): 매출·한도·상환 등 돈에만 씁니다.
+  - risk(레드): 연체·경보·거절에만 씁니다.
+  색은 장식이 아니라 의미입니다. 같은 의미에는 항상 같은 색을 씁니다.
+*/
+:root {
+  --paper: #f1f3ee;
+  --surface: #ffffff;
+  --ink: #18201b;
+  --ink-soft: #5a645d;
+  --line: #d9ded6;
+  --line-strong: #c3cabf;
+
+  --money: #0e6b4a;
+  --money-strong: #0a5038;
+  --money-soft: #e2efe7;
+  --compute: #9a5b00;
+  --compute-fill: #c98516;
+  --compute-soft: #fbefd9;
+  --risk: #b3391f;
+  --risk-soft: #f9e4de;
+  --caution: #7a5d00;
+  --caution-soft: #f6efcf;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--money);
+  --primary-foreground: #ffffff;
+  --secondary: #e7ebe4;
+  --secondary-foreground: var(--ink);
+  --muted: #e9ece6;
+  --muted-foreground: var(--ink-soft);
+  --accent: #e7ebe4;
+  --accent-foreground: var(--ink);
+  --destructive: var(--risk);
+  --border: var(--line);
+  --input: #8a928a;
+  --ring: #3f8a6b;
+
+  /* charts (dataviz 검증 통과): 1 LLM 비용, 2 추론 GPU, 3 심사 제외 GPU, 4 매출, 5 중립 */
+  --chart-1: #c98516;
+  --chart-2: #7f4a00;
+  --chart-3: #4f7dc4;
+  --chart-4: #12875a;
+  --chart-5: #9aa39c;
+
+  --radius: 0.5rem;
+
+  --sidebar: #e8ece5;
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--money);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #dde3d9;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--ring);
+}
+
+/* 관리자 콘솔은 사이드바를 잉크색으로 바꿔 '운영사 내부 도구'임을 표시합니다. */
+[data-portal="admin"] {
+  --sidebar: #17251e;
+  --sidebar-foreground: #e4ebe5;
+  --sidebar-accent: #24372d;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #24372d;
+  --sidebar-primary: #7fd1a8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Wanted Sans Variable", "Wanted Sans", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-heading: var(--font-sans);
+
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-money: var(--money);
+  --color-money-strong: var(--money-strong);
+  --color-money-soft: var(--money-soft);
+  --color-compute: var(--compute);
+  --color-compute-fill: var(--compute-fill);
+  --color-compute-soft: var(--compute-soft);
+  --color-risk: var(--risk);
+  --color-risk-soft: var(--risk-soft);
+  --color-caution: var(--caution);
+  --color-caution-soft: var(--caution-soft);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* beautiful-shadows: sm = 조용한 면, md = 기본 패널·팝오버, lg = 모달·가장 강한 들림 */
+  --shadow-elev-sm: 0px 2px 3px -1px rgba(0, 0, 0, 0.1), 0px 1px 0px 0px rgba(25, 28, 33, 0.02), 0px 0px 0px 1px rgba(25, 28, 33, 0.08);
+  --shadow-elev-md: 0px 0px 0px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px -0.5px rgba(0, 0, 0, 0.06), 0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 0px 6px 6px -3px rgba(0, 0, 0, 0.06), 0px 12px 12px -6px rgba(0, 0, 0, 0.06), 0px 24px 24px -12px rgba(0, 0, 0, 0.06);
+  --shadow-elev-lg: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    line-height: 1.25;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer utilities {
+  /* 금액·점수·비율은 항상 고정폭 숫자로 정렬합니다. */
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+/* 터치 기기에서는 누를 수 있는 요소를 44px 이상으로 키웁니다. 마우스 환경의 밀도는 그대로 둡니다. */
+@media (pointer: coarse) {
+  [data-slot="button"],
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  [data-slot="toggle-group-item"],
+  nav a {
+    min-height: 44px;
+  }
+  [data-slot="button"][data-size^="icon"] {
+    min-width: 44px;
+  }
+}
+
+/* TokenScore 미터가 들어올 때 한 번 차오르는 모션. 페이지의 유일한 진입 모션입니다. */
+@keyframes meter-fill {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

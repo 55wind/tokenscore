@@ -39,3 +39,16 @@ venv/
 
 # Claude Code (personal settings only; shared .claude/skills is committed)
 .claude/settings.local.json
+
+# Next / misc
+.pnp
+.pnp.*
+*.pem
+
+# Local demo database (re-created by `npm run db:reset`)
+data/*.db
+data/*.db-*
+.gstack/
+
+# QA screenshots
+.qa/
