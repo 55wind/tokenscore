@@ -78,6 +78,7 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #24372d;
   --sidebar-primary: #7fd1a8;
+  --sidebar-primary-foreground: #17251e;
 }
 
 @theme inline {
@@ -151,7 +152,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
   }
   html {
     @apply font-sans;

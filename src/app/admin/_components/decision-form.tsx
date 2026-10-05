@@ -1,7 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { ActionForm, SubmitButton } from "@/components/action-form";
+import { ActionForm } from "@/components/action-form";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,9 +36,11 @@ export function DecisionForm({
   const [value, setValue] = useState(defaultLimit.toLocaleString("ko-KR"));
   const amount = Number(value.replace(/[^0-9]/g, "")) || 0;
   const overSuggested = amount > suggestedLimit;
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const formId = `approve-${applicationId}`;
   return (
     <div className="flex flex-col gap-4">
-      <ActionForm action={approveApplicationAction}>
+      <ActionForm id={formId} action={approveApplicationAction} onDone={() => setConfirmOpen(false)}>
         <input type="hidden" name="id" value={applicationId} />
         <FieldGroup>
           <Field data-invalid={overSuggested ? true : undefined}>
@@ -56,7 +69,30 @@ export function DecisionForm({
             <FieldLabel htmlFor="note">승인 메모</FieldLabel>
             <Textarea id="note" name="note" rows={3} placeholder="검증한 데이터와 승인 근거를 남깁니다. 감사 로그에 기록됩니다." />
           </Field>
-          <SubmitButton className="w-full">승인</SubmitButton>
+          {/* 한도가 바로 열리고 기존 한도가 닫히므로 한 번 더 확인받습니다. */}
+          <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+            <AlertDialogTrigger asChild>
+              <Button type="button" className="w-full" disabled={!amount}>
+                승인
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  {companyName}에 {krw(amount)} 한도를 승인할까요?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  승인하면 기존 한도는 닫히고 새 한도가 바로 열립니다. 기업은 이 한도 안에서 청구서 결제를 승인할 수 있습니다.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>취소</AlertDialogCancel>
+                <Button type="submit" form={formId}>
+                  {krw(amount)} 한도 승인
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </FieldGroup>
       </ActionForm>
       <ConfirmAction

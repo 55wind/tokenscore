@@ -104,7 +104,7 @@ export default async function Landing() {
           <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {FLOW.map((step, i) => (
               <li key={step.title} className="flex flex-col gap-2">
-                <span className="num text-[13px] font-semibold text-money">{i + 1}단계</span>
+                <span className="num text-[13px] font-semibold text-ink-soft">{i + 1}단계</span>
                 <span className="text-[17px] font-[700]">{step.title}</span>
                 <p className="text-[14px] text-ink-soft">{step.body}</p>
               </li>

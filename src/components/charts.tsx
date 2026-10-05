@@ -29,10 +29,12 @@ export function CostTrendChart({
   data,
   showTraining = true,
   height = 260,
+  title = "월별 컴퓨트 비용 (LLM API, 추론 GPU, 심사 제외 GPU 누적)",
 }: {
   data: { month: string; llm: number; inference: number; training: number }[];
   showTraining?: boolean;
   height?: number;
+  title?: string;
 }) {
   const config = {
     llm: { label: "LLM API", color: "var(--chart-1)" },
@@ -42,7 +44,7 @@ export function CostTrendChart({
   const rows = data.map((d) => ({ ...d, label: shortMonthLabel(d.month) }));
   return (
     <ChartContainer config={config} className="aspect-auto w-full" style={{ height }}>
-      <BarChart data={rows} margin={{ top: 8, right: 4, left: 4, bottom: 0 }} barCategoryGap="28%">
+      <BarChart data={rows} margin={{ top: 8, right: 4, left: 4, bottom: 0 }} barCategoryGap="28%" title={title} desc="방향키로 월을 옮기면 항목별 금액이 툴팁으로 나옵니다.">
         <CartesianGrid vertical={false} strokeWidth={1} />
         <XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} tick={axisTick} />
         <YAxis tickLine={false} axisLine={false} width={52} tick={axisTick} tickFormatter={(v) => krwShort(v)} />
@@ -69,9 +71,11 @@ export function CostTrendChart({
 export function RevenueComputeChart({
   data,
   height = 240,
+  title = "월별 매출과 유료 컴퓨트 비용 추이",
 }: {
   data: { month: string; revenue: number; compute: number }[];
   height?: number;
+  title?: string;
 }) {
   const config = {
     revenue: { label: "매출", color: "var(--chart-4)" },
@@ -86,7 +90,7 @@ export function RevenueComputeChart({
     };
   return (
     <ChartContainer config={config} className="aspect-auto w-full" style={{ height }}>
-      <LineChart data={rows} margin={{ top: 12, right: 12, left: 4, bottom: 0 }}>
+      <LineChart data={rows} margin={{ top: 12, right: 12, left: 4, bottom: 0 }} title={title} desc="방향키로 월을 옮기면 매출과 컴퓨트 금액이 툴팁으로 나옵니다.">
         <CartesianGrid vertical={false} strokeWidth={1} />
         <XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} tick={axisTick} />
         <YAxis tickLine={false} axisLine={false} width={52} tick={axisTick} tickFormatter={(v) => krwShort(v)} />
@@ -99,11 +103,19 @@ export function RevenueComputeChart({
   );
 }
 
-export function DailyCostChart({ data, height = 180 }: { data: { date: string; cost: number }[]; height?: number }) {
+export function DailyCostChart({
+  data,
+  height = 180,
+  title = "최근 30일 일별 AI 비용",
+}: {
+  data: { date: string; cost: number }[];
+  height?: number;
+  title?: string;
+}) {
   const config = { cost: { label: "일별 비용", color: "var(--chart-1)" } } satisfies ChartConfig;
   return (
     <ChartContainer config={config} className="aspect-auto w-full" style={{ height }}>
-      <BarChart data={data} margin={{ top: 4, right: 4, left: 4, bottom: 0 }} barCategoryGap="22%">
+      <BarChart data={data} margin={{ top: 4, right: 4, left: 4, bottom: 0 }} barCategoryGap="22%" title={title} desc="방향키로 날짜를 옮기면 금액이 툴팁으로 나옵니다.">
         <CartesianGrid vertical={false} strokeWidth={1} />
         <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tick={axisTick} interval={4} />
         <YAxis tickLine={false} axisLine={false} width={48} tick={axisTick} tickFormatter={(v) => krwShort(v)} />
@@ -115,11 +127,19 @@ export function DailyCostChart({ data, height = 180 }: { data: { date: string; c
 }
 
 /** 등급별 익스포저: 단일 계열이라 범례 없이 제목이 계열을 말합니다. 값은 막대 끝에 표시합니다. */
-export function GradeExposureChart({ data, height = 220 }: { data: { grade: string; exposure: number; companies: number }[]; height?: number }) {
+export function GradeExposureChart({
+  data,
+  height = 220,
+  title = "등급별 사용 중인 한도",
+}: {
+  data: { grade: string; exposure: number; companies: number }[];
+  height?: number;
+  title?: string;
+}) {
   const config = { exposure: { label: "사용 중인 한도", color: "var(--chart-4)" } } satisfies ChartConfig;
   return (
     <ChartContainer config={config} className="aspect-auto w-full" style={{ height }}>
-      <BarChart data={data} margin={{ top: 22, right: 4, left: 4, bottom: 0 }} barCategoryGap="30%">
+      <BarChart data={data} margin={{ top: 22, right: 4, left: 4, bottom: 0 }} barCategoryGap="30%" title={title} desc="방향키로 등급을 옮기면 금액이 툴팁으로 나옵니다.">
         <CartesianGrid vertical={false} strokeWidth={1} />
         <XAxis dataKey="grade" tickLine={false} axisLine={false} tickMargin={8} tick={{ fontSize: 12, fontWeight: 600 }} tickFormatter={(g) => `${g}등급`} />
         <YAxis tickLine={false} axisLine={false} width={48} tick={axisTick} tickFormatter={(v) => krwShort(v)} />

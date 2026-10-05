@@ -80,7 +80,7 @@ export default async function AdminHome() {
           <CardHeader>
             <CardTitle>최근 처리</CardTitle>
             <CardDescription>
-              <Link href="/admin/audit" className="font-medium text-money underline-offset-4 hover:underline">
+              <Link href="/admin/audit" className="font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
                 감사 로그 전체 보기
               </Link>
             </CardDescription>
@@ -150,7 +150,15 @@ export default async function AdminHome() {
                   <Num className={o.overdueAmount > 0 ? "font-semibold text-risk" : "text-ink-soft"}>{o.overdueAmount > 0 ? krw(o.overdueAmount) : "없음"}</Num>
                 </TableCell>
                 <TableCell className="pr-4 text-right">
-                  {o.openAlerts > 0 ? <Badge variant={o.alerts.some((a) => a.severity === "critical" && !a.acked) ? "risk" : "caution"}>{o.openAlerts}건</Badge> : <span className="text-ink-soft">없음</span>}
+                  {o.openAlerts > 0 ? (
+                    o.alerts.some((a) => a.severity === "critical" && !a.acked) ? (
+                      <Badge variant="risk">위험 {o.openAlerts}건</Badge>
+                    ) : (
+                      <Badge variant="caution">주의 {o.openAlerts}건</Badge>
+                    )
+                  ) : (
+                    <span className="text-ink-soft">없음</span>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

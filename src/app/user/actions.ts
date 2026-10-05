@@ -30,7 +30,10 @@ export async function createPaymentAction(_: ActionResult, formData: FormData): 
     invoiceNo: formData.get("invoiceNo") ?? undefined,
     memo: formData.get("memo") ?? undefined,
   });
-  if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message ?? "입력값을 확인하세요." };
+  if (!parsed.success) {
+    const issue = parsed.error.issues[0];
+    return { ok: false, message: issue?.message ?? "입력값을 확인하세요.", field: issue ? String(issue.path[0]) : undefined };
+  }
   const input = parsed.data;
 
   return run(async () => {

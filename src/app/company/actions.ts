@@ -57,7 +57,10 @@ export async function applyAction(_: ActionResult, formData: FormData): Promise<
     termMonths: formData.get("termMonths"),
     purpose: formData.get("purpose"),
   });
-  if (!parsed.success) return { ok: false, message: parsed.error.issues[0]?.message ?? "입력값을 확인하세요." };
+  if (!parsed.success) {
+    const issue = parsed.error.issues[0];
+    return { ok: false, message: issue?.message ?? "입력값을 확인하세요.", field: issue ? String(issue.path[0]) : undefined };
+  }
   let auto = false;
   const result = await run(async () => {
     auto = (await submitApplication(user, parsed.data)).auto;

@@ -141,7 +141,7 @@ export default async function RequestsPage() {
         <Card>
           <CardHeader>
             <CardTitle>새 결제 요청</CardTitle>
-            <CardDescription>청구서 정보를 적어 주세요. 10만원 이상부터 요청할 수 있습니다.</CardDescription>
+            <CardDescription>청구서에 적힌 공급사, 금액, 청구 월을 그대로 적어 주세요.</CardDescription>
           </CardHeader>
           <CardContent>
             {providers.length ? (

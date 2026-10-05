@@ -139,12 +139,12 @@ export async function CostDashboard({ companyId, showRevenue = false }: { compan
                 const badge = KIND_BADGE[line.kind];
                 return (
                   <TableRow key={line.key}>
-                    <TableCell className="max-w-[180px] sm:max-w-[280px]">
-                      <p className="truncate font-medium text-ink">{line.label}</p>
-                      <p className="truncate text-[12.5px] text-ink-soft">{line.sub}</p>
-                      <p className="mt-1 flex items-center gap-1.5 text-[12.5px] text-ink-soft sm:hidden">
+                    <TableCell className="max-w-[180px] whitespace-normal sm:max-w-[280px] sm:whitespace-nowrap">
+                      <p className="font-medium text-ink sm:truncate">{line.label}</p>
+                      <p className="text-[12.5px] text-ink-soft sm:truncate">{line.sub}</p>
+                      <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[12.5px] text-ink-soft sm:hidden">
                         <Badge variant={badge.variant}>{badge.label}</Badge>
-                        <span className="truncate">{line.usage}</span>
+                        <span>{line.usage}</span>
                       </p>
                     </TableCell>
                     <TableCell className="hidden sm:table-cell">

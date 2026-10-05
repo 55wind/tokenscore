@@ -18,11 +18,14 @@ export function ActionForm({
   children,
   className,
   onDone,
+  id,
 }: {
   action: (prev: ActionResult, formData: FormData) => Promise<ActionResult>;
   children: React.ReactNode;
   className?: string;
   onDone?: (result: ActionResult) => void;
+  /** 대화상자 안의 버튼이 form 속성으로 이 폼을 제출할 때 씁니다. */
+  id?: string;
 }) {
   const onDoneRef = useRef(onDone);
   useEffect(() => {
@@ -38,7 +41,7 @@ export function ActionForm({
     return result;
   }, null);
   return (
-    <form action={formAction} className={className}>
+    <form id={id} action={formAction} className={className}>
       {children}
     </form>
   );

@@ -20,6 +20,7 @@ import { approvePaymentAction, rejectPaymentAction } from "../actions";
 
 export function PaymentDecision({ id, provider, amount, canApprove }: { id: string; provider: string; amount: number; canApprove: boolean }) {
   const [open, setOpen] = useState(false);
+  const [approveOpen, setApproveOpen] = useState(false);
   return (
     <div className="flex shrink-0 gap-2">
       <Dialog open={open} onOpenChange={setOpen}>
@@ -50,10 +51,33 @@ export function PaymentDecision({ id, provider, amount, canApprove }: { id: stri
           </ActionForm>
         </DialogContent>
       </Dialog>
-      <ActionForm action={approvePaymentAction}>
-        <input type="hidden" name="id" value={id} />
-        <SubmitButton disabled={!canApprove}>승인</SubmitButton>
-      </ActionForm>
+      {/* 승인하면 한도가 차감되고 운영사 집행으로 넘어가므로 한 번 더 확인받습니다. */}
+      <Dialog open={approveOpen} onOpenChange={setApproveOpen}>
+        <DialogTrigger asChild>
+          <Button disabled={!canApprove}>승인</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>
+              {provider} {krw(amount)} 결제를 승인할까요?
+            </DialogTitle>
+            <DialogDescription>
+              승인하면 Compute Pay 한도에서 {krw(amount)}이 바로 차감되고, TokenScore가 공급사에 대신 결제합니다. 결제한 금액은 다음 달부터 매출에서 나눠 갚습니다.
+            </DialogDescription>
+          </DialogHeader>
+          <ActionForm action={approvePaymentAction} onDone={(r) => r?.ok && setApproveOpen(false)}>
+            <input type="hidden" name="id" value={id} />
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="ghost">
+                  취소
+                </Button>
+              </DialogClose>
+              <SubmitButton>{krw(amount)} 결제 승인</SubmitButton>
+            </DialogFooter>
+          </ActionForm>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

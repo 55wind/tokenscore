@@ -34,6 +34,7 @@ export function NavLinks({ portal, counts, onNavigate }: { portal: Portal; count
                 {count > 0 && (
                   <span className="num ml-auto min-w-5 rounded-[5px] bg-sidebar-primary px-1.5 text-center text-[11px] leading-5 font-semibold text-sidebar-primary-foreground">
                     {count}
+                    <span className="sr-only">건</span>
                   </span>
                 )}
               </Link>

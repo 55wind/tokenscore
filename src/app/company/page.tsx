@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { and, asc, eq, inArray } from "drizzle-orm";
-import { ArrowUpRightIcon, LandmarkIcon, PlugIcon } from "lucide-react";
+import { ArrowUpRightIcon, LandmarkIcon } from "lucide-react";
 import { PageHeader, SectionTitle } from "@/components/page-header";
 import { ScoreMeter, GradeMark } from "@/components/score-meter";
 import { Stat, StatRow, UsageMeter, Num } from "@/components/metrics";
@@ -198,36 +198,20 @@ export default async function CompanyHome() {
             </CardHeader>
             <CardContent className="flex flex-col gap-3 text-[13.5px]">
               {requests.length > 0 && (
-                <Link href="/company/pay" className="group flex items-start justify-between gap-3 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                  <span>
-                    <span className="font-semibold">결제 요청 {requests.length}건</span>
-                    <span className="block text-ink-soft">
-                      {requests
-                        .slice(0, 2)
-                        .map((r) => `${users.find((u) => u.id === r.requestedBy)?.name ?? "구성원"}님 ${r.provider} ${krw(r.amount)}`)
-                        .join(", ")}
-                    </span>
-                  </span>
-                  <ArrowUpRightIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-soft group-hover:text-ink" />
-                </Link>
+                <TodoRow
+                  href="/company/pay"
+                  title={`결제 요청 ${requests.length}건`}
+                  body={requests
+                    .slice(0, 2)
+                    .map((r) => `${users.find((u) => u.id === r.requestedBy)?.name ?? "구성원"}님 ${r.provider} ${krw(r.amount)}`)
+                    .join(", ")}
+                />
               )}
               {overdue.length > 0 && (
-                <Link href="/company/repayments" className="flex items-start justify-between gap-3">
-                  <span>
-                    <span className="font-semibold text-risk">연체 {overdue.length}건</span>
-                    <span className="block text-ink-soft">매출 계좌 잔액을 확인하고 상환 일정을 조정하세요.</span>
-                  </span>
-                  <ArrowUpRightIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-soft" />
-                </Link>
+                <TodoRow href="/company/repayments" title={`연체 ${overdue.length}건`} tone="risk" body="매출 계좌 잔액을 확인하고 상환 일정을 조정하세요." />
               )}
               {bankMissing && (
-                <Link href="/company/connections" className="flex items-start justify-between gap-3">
-                  <span>
-                    <span className="font-semibold">상환 계좌 연결</span>
-                    <span className="block text-ink-soft">한도를 받으려면 매출이 들어오는 계좌를 연결해야 합니다.</span>
-                  </span>
-                  <PlugIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-soft" />
-                </Link>
+                <TodoRow href="/company/connections" title="상환 계좌 연결" body="한도를 받으려면 매출이 들어오는 계좌를 연결해야 합니다." />
               )}
               {!requests.length && !overdue.length && !bankMissing && <p className="text-ink-soft">지금 처리할 일이 없습니다.</p>}
             </CardContent>
@@ -253,7 +237,7 @@ export default async function CompanyHome() {
             <CardHeader>
               <CardTitle>데이터 연동</CardTitle>
               <CardAction>
-                <Link href="/company/connections" className="text-[13px] font-medium text-money underline-offset-4 hover:underline">
+                <Link href="/company/connections" className="text-[13px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
                   관리
                 </Link>
               </CardAction>
@@ -283,5 +267,21 @@ export default async function CompanyHome() {
         </ul>
       )}
     </>
+  );
+}
+
+/** 처리할 일 한 줄. 모든 줄이 같은 모양의 링크라서 누를 수 있다는 것이 한눈에 보입니다. */
+function TodoRow({ href, title, body, tone }: { href: string; title: string; body: string; tone?: "risk" }) {
+  return (
+    <Link
+      href={href}
+      className="group -mx-2 flex items-start justify-between gap-3 rounded-md px-2 py-1.5 outline-none hover:bg-paper focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      <span>
+        <span className={tone === "risk" ? "font-semibold text-risk" : "font-semibold"}>{title}</span>
+        <span className="block text-ink-soft">{body}</span>
+      </span>
+      <ArrowUpRightIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-soft group-hover:text-ink" />
+    </Link>
   );
 }

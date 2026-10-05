@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // QA 스크린샷·점검 스크립트 (gitignore 대상)
+    ".qa/**",
+    ".gstack/**",
   ]),
 ]);
 

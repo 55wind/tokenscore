@@ -39,7 +39,7 @@ export default async function PayPage() {
         <StatRow className="mb-7">
           <Stat lead label="남은 한도" value={krw(line.available)} tone="money" sub={<UsageMeter className="mt-2 max-w-[240px]" value={line.inUse} max={line.limit} label="한도 사용률" />} />
           <Stat label="승인 한도" value={krw(line.limit)} />
-          <Stat label="집행 대기" value={krw(line.pendingExecution)} tone="compute" sub="운영사가 결제 중" />
+          <Stat label="집행 대기" value={krw(line.pendingExecution)} tone="compute" sub="회사 승인 후 운영사 집행 전" />
           <Stat label="갚을 금액" value={krw(line.outstanding)} sub="수수료 포함" />
         </StatRow>
       ) : (
@@ -96,7 +96,7 @@ export default async function PayPage() {
 
       {inFlight.length > 0 && (
         <>
-          <SectionTitle className="mt-9">운영사 결제 중</SectionTitle>
+          <SectionTitle className="mt-9">집행 대기</SectionTitle>
           <Card className="py-0">
             <CardContent className="overflow-x-auto px-0">
               <Table className="min-w-[620px]">

@@ -32,12 +32,13 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+/** 카드 제목은 실제 제목 요소(h2)로 렌더링해 스크린리더가 구획 단위로 이동할 수 있게 합니다. */
+function CardTitle({ className, ...props }: React.ComponentProps<"h2">) {
   return (
-    <div
+    <h2
       data-slot="card-title"
       className={cn(
-        "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm",
+        "font-heading text-base leading-snug font-[650] tracking-[-0.01em] group-data-[size=sm]/card:text-[15px]",
         className
       )}
       {...props}

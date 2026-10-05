@@ -18,7 +18,15 @@ async function main() {
   }
   if (file) {
     fs.mkdirSync(path.dirname(file), { recursive: true });
-    for (const f of [file, `${file}-journal`, `${file}-wal`, `${file}-shm`]) if (fs.existsSync(f)) fs.rmSync(f);
+    for (const f of [file, `${file}-journal`, `${file}-wal`, `${file}-shm`]) {
+      if (!fs.existsSync(f)) continue;
+      try {
+        fs.rmSync(f);
+      } catch {
+        // 개발 서버가 파일을 잡고 있으면(Windows) 지우지 않고, 아래 시드가 모든 테이블을 비우고 다시 채웁니다.
+        console.log(`${path.basename(f)} 파일을 쓰는 중이라 지우지 않고 데이터만 다시 만듭니다.`);
+      }
+    }
   }
 
   const { db } = await import("../src/lib/db");

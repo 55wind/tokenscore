@@ -87,7 +87,7 @@ export default async function ScoreReportPage() {
               result.bonusPoints.map((b) => (
                 <div key={b.label} className="flex justify-between border-t border-line/70 py-2">
                   <span>{b.label}</span>
-                  <Num className="font-semibold text-money">+{b.points}</Num>
+                  <Num className="font-semibold text-ink">+{b.points}</Num>
                 </div>
               ))
             ) : (
@@ -208,7 +208,7 @@ export default async function ScoreReportPage() {
                     <TableCell className="max-w-[260px] text-[12.5px] whitespace-normal text-ink-soft">{w.reason}</TableCell>
                     <TableCell className="num text-right">{krw(w.cost)}</TableCell>
                     <TableCell className="pr-5 text-[12.5px]">
-                      {w.counted ? <span className="font-medium text-money">반영</span> : <span className="text-ink-soft">제외: {w.excludedBecause}</span>}
+                      {w.counted ? <span className="font-semibold text-ink">반영</span> : <span className="text-ink-soft">제외: {w.excludedBecause}</span>}
                     </TableCell>
                   </TableRow>
                 ))}

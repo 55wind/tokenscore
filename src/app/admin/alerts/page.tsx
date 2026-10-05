@@ -63,7 +63,7 @@ export default async function AlertsPage() {
                         </p>
                         <p className="text-ink-soft">{a.detail}</p>
                         {a.acked && (
-                          <p className="mt-0.5 text-[12.5px] text-money">
+                          <p className="mt-0.5 text-[12.5px] text-ink-soft">
                             확인함 {dateTimeKo(a.acked.at)}
                             {a.acked.note ? `: ${a.acked.note}` : ""}
                           </p>

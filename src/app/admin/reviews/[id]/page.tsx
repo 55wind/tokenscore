@@ -86,7 +86,10 @@ export default async function ReviewDetail({ params }: { params: Promise<{ id: s
                 <dd className={`num text-[20px] font-[700] ${app.requestedAmount > result.limit.amount ? "text-risk" : "text-money-strong"}`}>
                   {krw(result.limit.amount)}
                 </dd>
-                <dd className="text-[12.5px] text-ink-soft">신청 시 {krw(app.suggestedLimit)}</dd>
+                <dd className="text-[12.5px] text-ink-soft">
+                  {app.requestedAmount > result.limit.amount && <span className="font-semibold text-risk">신청액보다 적음. </span>}
+                  신청 시 {krw(app.suggestedLimit)}
+                </dd>
               </div>
               <div className="col-span-2 sm:col-span-1">
                 <dt className="text-ink-soft">최근 3개월 평균</dt>

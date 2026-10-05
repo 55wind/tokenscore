@@ -94,7 +94,7 @@ export function LimitFormula({ result, config }: { result: ScoreResult; config: 
         >
           <span>
             <span className="font-semibold">{r.label}</span>
-            {result.limit.binding === r.key && <span className="text-money"> (적용)</span>}
+            {result.limit.binding === r.key && <span className="font-semibold text-ink"> (적용)</span>}
             <span className="block text-[12.5px] text-ink-soft">{r.formula}</span>
           </span>
           <Num className="shrink-0 font-semibold">{krw(r.value)}</Num>
@@ -170,7 +170,7 @@ export function WorkloadTable({ result, months }: { result: ScoreResult; months:
                   <Num>{krw(w.cost)}</Num>
                 </TableCell>
                 <TableCell className="pr-4">
-                  {w.counted ? <span className="font-medium text-money">반영</span> : <span className="text-[12.5px] text-ink-soft">제외: {w.excludedBecause}</span>}
+                  {w.counted ? <span className="font-semibold text-ink">반영</span> : <span className="text-[12.5px] text-ink-soft">제외: {w.excludedBecause}</span>}
                 </TableCell>
               </TableRow>
             ))}

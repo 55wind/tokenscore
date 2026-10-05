@@ -101,9 +101,9 @@ export function GradeMark({ grade, className }: { grade: string; className?: str
         tone,
         className,
       )}
-      aria-label={grade === "-" ? "등급 없음" : `${grade}등급`}
     >
-      {grade}
+      <span aria-hidden>{grade}</span>
+      <span className="sr-only">{grade === "-" ? "등급 없음" : `${grade}등급`}</span>
     </span>
   );
 }
