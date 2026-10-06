@@ -16,6 +16,7 @@ import type { User } from "@/lib/db/schema";
 import { NavLinks } from "./nav-links";
 import { SkipLink } from "./skip-link";
 import { MobileNav } from "./mobile-nav";
+import { MobileTabs } from "./mobile-tabs";
 import { NAV, type Portal } from "./nav-config";
 
 function AccountFooter({ user, orgName, portal }: { user: User; orgName: string; portal: Portal }) {
@@ -112,7 +113,8 @@ export function AppShell({
           <Brand />
           <MobileNav portal={portal} counts={counts} footer={footer} />
         </header>
-        <main id="main" tabIndex={-1} className="mx-auto w-full outline-none max-w-[1200px] px-4 pt-6 pb-16 sm:px-6 lg:px-10 lg:pt-9">{children}</main>
+        <MobileTabs portal={portal} counts={counts} />
+        <main id="main" tabIndex={-1} className="mx-auto w-full outline-none max-w-[1200px] px-4 pt-6 pb-28 lg:pb-16 sm:px-6 lg:px-10 lg:pt-9">{children}</main>
       </div>
     </div>
   );

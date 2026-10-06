@@ -36,6 +36,15 @@
   --caution: #945f0e; /* 0.53 0.11 70 */
   --caution-soft: #f8efe0;
 
+  /* 풍성한 면 (v3): 남색 패널, 하늘·민트 면, 그라데이션은 의미 있는 큰 면(히어로·CTA)에만 */
+  --navy: #1b2a4e;
+  --navy-soft: #24365f;
+  --sky: #eaf2ff;
+  --sky-strong: #d6e5ff;
+  --mint: #e6f7f1;
+  --mint-strong: #0e7c63;
+  --coral: #d63c3c;
+
   --background: var(--canvas);
   --foreground: var(--ink);
   --card: var(--surface);
@@ -72,6 +81,9 @@
   --sidebar-accent-foreground: var(--ink);
   --sidebar-border: var(--line);
   --sidebar-ring: var(--ring);
+  /* 선택된 메뉴: 회사·사용자 화면은 파란 면 + 파란 글자 */
+  --sidebar-active: var(--primary-soft);
+  --sidebar-active-foreground: var(--primary-strong);
 }
 
 /* 관리자 콘솔은 사이드바를 남색으로 바꿔 '운영사 내부 도구'임을 표시합니다. */
@@ -83,6 +95,8 @@
   --sidebar-border: #243047;
   --sidebar-primary: #9cbeff; /* 남색 위 8.8:1 */
   --sidebar-primary-foreground: #161f30;
+  --sidebar-active: #2a3b63;
+  --sidebar-active-foreground: #ffffff;
 }
 
 @theme inline {
@@ -107,8 +121,17 @@
   --color-risk-soft: var(--risk-soft);
   --color-caution: var(--caution);
   --color-caution-soft: var(--caution-soft);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-sky: var(--sky);
+  --color-sky-strong: var(--sky-strong);
+  --color-mint: var(--mint);
+  --color-mint-strong: var(--mint-strong);
+  --color-coral: var(--coral);
 
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-active-foreground: var(--sidebar-active-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-accent: var(--sidebar-accent);
@@ -138,14 +161,14 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
 
-  /* 반경은 세 단계만: 6px 작은 표식, 8px 버튼·입력, 12px 패널. */
+  /* 반경: 6px 표식, 8px 입력, 16px 카드, 20~24px 큰 패널·히어로. */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 0.75rem;
-  --radius-3xl: 0.75rem;
-  --radius-4xl: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 1.75rem;
 
   /*
     타입 스케일: 14px 본문 기준 1.2배 모듈러 스케일. 큰 단계는 clamp()로 화면에 따라 유동적으로.
@@ -171,12 +194,13 @@
   --text-6xl--line-height: 1;
 
   /*
-    면의 깊이: 카드는 그림자 없이 1px 헤어라인(sm)만. 그림자는 떠 있는 것에만 한 단계.
-    md = 팝오버·드롭다운·토스트, lg = 대화상자. 블러가 물체보다 커지지 않게 작게 둡니다.
+    면의 깊이 (v3, 풍성하게): sm = 카드(얇은 테두리 + 푸른 기운의 부드러운 그림자), md = 떠 있는 카드·팝오버,
+    lg = 히어로 목업·대화상자, glow = 주요 버튼 아래 파란 그림자.
   */
-  --shadow-elev-sm: 0 0 0 1px var(--line);
-  --shadow-elev-md: 0 0 0 1px var(--line), 0 4px 12px rgb(22 27 36 / 0.08);
-  --shadow-elev-lg: 0 0 0 1px var(--line), 0 12px 32px rgb(22 27 36 / 0.14);
+  --shadow-elev-sm: 0 0 0 1px rgb(22 27 36 / 0.05), 0 1px 2px rgb(22 27 36 / 0.04), 0 8px 24px -8px rgb(30 60 140 / 0.10);
+  --shadow-elev-md: 0 0 0 1px rgb(22 27 36 / 0.05), 0 4px 12px rgb(22 27 36 / 0.06), 0 18px 40px -12px rgb(30 60 140 / 0.16);
+  --shadow-elev-lg: 0 0 0 1px rgb(22 27 36 / 0.05), 0 12px 32px rgb(22 27 36 / 0.10), 0 32px 64px -20px rgb(30 60 140 / 0.22);
+  --shadow-glow: 0 18px 40px -16px rgb(40 96 221 / 0.55);
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -230,6 +254,40 @@
   }
   [data-slot="button"][data-size^="icon"] {
     min-width: 44px;
+  }
+}
+
+/* 랜딩 연출: 떠 있는 목업, 흐르는 띠, 스크롤 등장. 모두 움직임 줄이기 설정에서 꺼집니다. */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }
 

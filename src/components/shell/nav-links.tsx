@@ -24,15 +24,15 @@ export function NavLinks({ portal, counts, onNavigate }: { portal: Portal; count
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group flex h-9 items-center gap-3 rounded-md px-3 text-sm font-medium text-sidebar-foreground/80 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
+                  "group flex h-10 items-center gap-3 rounded-xl px-3 text-sm font-semibold text-sidebar-foreground/80 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
                   "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                  active && "bg-sidebar-accent font-semibold text-sidebar-accent-foreground",
+                  active && "bg-sidebar-active font-bold text-sidebar-active-foreground",
                 )}
               >
-                <Icon aria-hidden className={cn("size-4 shrink-0 opacity-70", active && "text-sidebar-primary opacity-100")} />
+                <Icon aria-hidden className={cn("size-[18px] shrink-0 opacity-70", active && "opacity-100")} />
                 <span className="truncate">{item.label}</span>
                 {count > 0 && (
-                  <span className="num ml-auto min-w-5 rounded-[5px] bg-sidebar-primary px-2 text-center text-xs leading-5 font-semibold text-sidebar-primary-foreground">
+                  <span className="num ml-auto min-w-5 rounded-full bg-sidebar-primary px-2 text-center text-xs leading-5 font-semibold text-sidebar-primary-foreground">
                     {count}
                     <span className="sr-only">건</span>
                   </span>

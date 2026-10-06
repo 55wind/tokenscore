@@ -28,6 +28,13 @@ export interface NavItem {
   countKey?: string;
 }
 
+/** 휴대폰 하단 탭바에 둘 화면 (가장 자주 쓰는 네 개까지). 나머지는 위쪽 메뉴에서 엽니다. */
+export const MOBILE_TABS: Record<Portal, string[]> = {
+  company: ["/company", "/company/costs", "/company/pay", "/company/repayments"],
+  user: ["/user", "/user/savings", "/user/requests"],
+  admin: ["/admin", "/admin/reviews", "/admin/payments", "/admin/alerts"],
+};
+
 export const NAV: Record<Portal, { title: string; groups: { label?: string; items: NavItem[] }[] }> = {
   company: {
     title: "회사",
