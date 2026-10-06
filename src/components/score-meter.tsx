@@ -29,7 +29,7 @@ export function ScoreMeter({
     [Math.round(cutoffs.B / 10), "B"],
     [Math.round(cutoffs.A / 10), "A"],
   ]);
-  const tone = muted ? "bg-ink-soft/50" : grade === "A" || grade === "B" ? "bg-money" : grade === "C" ? "bg-caution" : "bg-risk";
+  const tone = muted ? "bg-ink-soft/50" : grade === "A" || grade === "B" ? "bg-primary" : grade === "C" ? "bg-caution" : "bg-risk";
   const h = size === "lg" ? "h-9" : "h-5";
 
   return (
@@ -70,7 +70,7 @@ export function ScoreMeter({
         </div>
       </div>
       {size === "lg" && (
-        <div className="relative mt-2 h-4 text-[11px] font-medium text-ink-soft">
+        <div className="relative mt-2 h-4 text-xs font-medium text-ink-soft">
           <span className="absolute left-0">0</span>
           {[...boundaries.entries()].map(([pos, g]) => (
             <span key={g} className="num absolute -translate-x-1/2" style={{ left: `${pos}%` }}>
@@ -88,7 +88,7 @@ export function ScoreMeter({
 export function GradeMark({ grade, className }: { grade: string; className?: string }) {
   const tone =
     grade === "A" || grade === "B"
-      ? "border-money text-money"
+      ? "border-primary text-primary"
       : grade === "C"
         ? "border-caution text-caution"
         : grade === "-"
@@ -97,7 +97,7 @@ export function GradeMark({ grade, className }: { grade: string; className?: str
   return (
     <span
       className={cn(
-        "inline-grid size-7 shrink-0 place-items-center rounded-[5px] border-[1.5px] text-[14px] font-[800] leading-none",
+        "inline-grid size-7 shrink-0 place-items-center rounded-[5px] border-[1.5px] text-sm font-semibold leading-none",
         tone,
         className,
       )}

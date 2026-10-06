@@ -53,7 +53,7 @@ export function ApplyForm({
             }}
             aria-invalid={over || error?.field === "requestedAmount" ? true : undefined}
             aria-describedby={error?.field === "requestedAmount" ? "requestedAmount-help requestedAmount-error" : "requestedAmount-help"}
-            className="num text-[16px]"
+            className="num text-lg"
           />
           <FieldDescription id="requestedAmount-help">
             {over
@@ -90,7 +90,7 @@ export function ApplyForm({
           {error?.field === "purpose" && <FieldError id="purpose-error">{error.message}</FieldError>}
         </Field>
 
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-2 rounded-lg bg-paper px-4 py-3 text-[13.5px] sm:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-2 rounded-lg bg-surface-soft px-4 py-3 text-sm sm:grid-cols-4">
           <div>
             <dt className="text-ink-soft">수수료 ({pct(feeRate)})</dt>
             <dd className="num font-semibold">{krw(plan.fee)}</dd>
@@ -108,7 +108,7 @@ export function ApplyForm({
             <dd className="num font-semibold">{pct(plan.revenueShare)}</dd>
           </div>
         </dl>
-        <p className="-mt-3 text-[12.5px] text-ink-soft">한도를 전부 쓴다고 가정한 예시입니다. 실제 수수료는 결제한 청구서 금액에만 붙습니다.</p>
+        <p className="-mt-3 text-xs text-ink-soft">한도를 전부 쓴다고 가정한 예시입니다. 실제 수수료는 결제한 청구서 금액에만 붙습니다.</p>
 
         <SubmitButton size="lg" className="self-start">
           한도 신청

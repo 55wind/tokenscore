@@ -56,7 +56,7 @@ export default async function CompanyHome() {
       />
 
       {bridge && (
-        <Alert className="mb-6 border-money/25 bg-money-soft/60">
+        <Alert className="mb-6">
           <LandmarkIcon />
           <AlertTitle>
             {bridge.program.name} 지원이 {monthLabel(bridge.program.endMonth)}에 끝납니다
@@ -80,7 +80,7 @@ export default async function CompanyHome() {
         <Card>
           <CardHeader>
             <CardTitle>TokenScore</CardTitle>
-            <CardDescription>재무제표 대신 AI가 일한 기록으로 매긴 신용점수입니다.</CardDescription>
+            <CardDescription>공급사 청구 데이터와 PG 매출로 매긴 신용점수입니다.</CardDescription>
             <CardAction>
               <GradeMark grade={scored ? result.grade : "-"} />
             </CardAction>
@@ -89,13 +89,13 @@ export default async function CompanyHome() {
             {scored ? (
               <>
                 <p className="flex items-baseline gap-2">
-                  <span className="text-[56px] leading-none font-[780] tracking-[-0.04em] text-ink">{result.score}</span>
-                  <span className="text-[15px] text-ink-soft">/ 1000점</span>
+                  <span className="text-6xl leading-none font-medium tracking-[-0.04em] text-ink">{result.score}</span>
+                  <span className="text-lg text-ink-soft">/ 1000점</span>
                 </p>
                 <ScoreMeter score={result.score} grade={result.grade} cutoffs={config.cutoffs} />
-                <ul className="grid gap-x-6 gap-y-1.5 text-[13.5px] sm:grid-cols-2">
+                <ul className="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
                   {result.subScores.map((sub) => (
-                    <li key={sub.key} className="flex items-center justify-between gap-3 border-b border-line/70 py-1.5">
+                    <li key={sub.key} className="flex items-center justify-between gap-3 border-b border-line/70 py-2">
                       <span className="text-ink-soft">{sub.label}</span>
                       <Num className="font-semibold text-ink">{sub.score}</Num>
                     </li>
@@ -104,7 +104,7 @@ export default async function CompanyHome() {
               </>
             ) : (
               <div className="flex flex-col gap-3">
-                <p className="text-[22px] font-[700] text-ink">평가 보류</p>
+                <p className="text-xl font-semibold text-ink">평가 보류</p>
                 <p className="text-ink-soft">{result.insufficientReason}</p>
                 <p className="text-ink-soft">무료 크레딧과 자체 신고 데이터는 심사에 쓰지 않습니다. 유료 결제가 3개월 이상 쌓이면 바로 점수가 나옵니다.</p>
                 <ScoreMeter score={0} grade="E" cutoffs={config.cutoffs} muted />
@@ -129,11 +129,11 @@ export default async function CompanyHome() {
             {line ? (
               <>
                 <div>
-                  <p className="text-[12.5px] text-ink-soft">남은 한도</p>
-                  <p className="text-[34px] leading-tight font-[760] tracking-[-0.03em] text-money-strong">{krw(line.available)}</p>
+                  <p className="text-xs text-ink-soft">남은 한도</p>
+                  <p className="text-3xl leading-tight font-semibold tracking-[-0.03em] text-ink">{krw(line.available)}</p>
                 </div>
                 <UsageMeter value={line.inUse} max={line.limit} label="한도 사용률" />
-                <dl className="grid grid-cols-2 gap-y-2 text-[13.5px]">
+                <dl className="grid grid-cols-2 gap-y-2 text-sm">
                   <dt className="text-ink-soft">승인 한도</dt>
                   <dd className="num text-right font-medium">{krw(line.limit)}</dd>
                   <dt className="text-ink-soft">사용 중</dt>
@@ -147,7 +147,7 @@ export default async function CompanyHome() {
               </>
             ) : applications.length ? (
               <div className="flex flex-col gap-2">
-                <p className="text-[22px] font-[700]">심사 중</p>
+                <p className="text-xl font-semibold">심사 중</p>
                 <p className="text-ink-soft">
                   {krw(applications[0].requestedAmount)} 신청을 심사하고 있습니다. 공급사 데이터 검증이 끝나면 결과를 알려 드립니다.
                 </p>
@@ -155,10 +155,10 @@ export default async function CompanyHome() {
             ) : scored ? (
               <div className="flex flex-col gap-3">
                 <div>
-                  <p className="text-[12.5px] text-ink-soft">지금 받을 수 있는 한도</p>
-                  <p className="text-[34px] leading-tight font-[760] tracking-[-0.03em] text-money-strong">{krw(result.limit.amount)}</p>
+                  <p className="text-xs text-ink-soft">지금 받을 수 있는 한도</p>
+                  <p className="text-3xl leading-tight font-semibold tracking-[-0.03em] text-ink">{krw(result.limit.amount)}</p>
                 </div>
-                <p className="text-[13.5px] text-ink-soft">
+                <p className="text-sm text-ink-soft">
                   최근 3개월 평균 유료 컴퓨트 {krw(k.avgCompute3)} × 3 × 등급계수 {num(result.coefficient, 2)}
                 </p>
                 <Button asChild className="self-start">
@@ -196,7 +196,7 @@ export default async function CompanyHome() {
             <CardHeader>
               <CardTitle>처리할 일</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col gap-3 text-[13.5px]">
+            <CardContent className="flex flex-col gap-3 text-sm">
               {requests.length > 0 && (
                 <TodoRow
                   href="/company/pay"
@@ -221,11 +221,11 @@ export default async function CompanyHome() {
             <CardHeader>
               <CardTitle>다음 상환</CardTitle>
             </CardHeader>
-            <CardContent className="text-[13.5px]">
+            <CardContent className="text-sm">
               {dueMonth ? (
                 <div className="flex items-baseline justify-between">
                   <span className="text-ink-soft">{monthLabel(dueMonth, true)} 매출에서 자동 차감</span>
-                  <Num className="text-[17px] font-semibold">{krw(dueThisCycle)}</Num>
+                  <Num className="text-lg font-semibold">{krw(dueThisCycle)}</Num>
                 </div>
               ) : (
                 <p className="text-ink-soft">예정된 상환이 없습니다.</p>
@@ -237,12 +237,12 @@ export default async function CompanyHome() {
             <CardHeader>
               <CardTitle>데이터 연동</CardTitle>
               <CardAction>
-                <Link href="/company/connections" className="text-[13px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
+                <Link href="/company/connections" className="text-sm font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
                   관리
                 </Link>
               </CardAction>
             </CardHeader>
-            <CardContent className="text-[13.5px] text-ink-soft">
+            <CardContent className="text-sm text-ink-soft">
               공급사 {data.connections.length}곳 중 <span className="num font-semibold text-ink">{connected}</span>곳이 연결되어 있습니다.
             </CardContent>
           </Card>
@@ -250,12 +250,12 @@ export default async function CompanyHome() {
       </div>
 
       <SectionTitle className="mt-9">심사에 반영되지 않은 사용</SectionTitle>
-      <p className="max-w-[72ch] text-[13.5px] text-ink-soft">
+      <p className="max-w-[72ch] text-sm text-ink-soft">
         학습용 GPU, 정부 지원과 무료 크레딧 사용분, 기업이 직접 신고한 데이터는 한도 계산에서 뺍니다. 매출과 직접 이어지는 유료 추론 사용만 봅니다.
         {result.flags.length > 0 && " 이번 달 반영 내역:"}
       </p>
       {result.flags.length > 0 && (
-        <ul className="mt-2 flex max-w-[72ch] flex-col gap-1 text-[13.5px]">
+        <ul className="mt-2 flex max-w-[72ch] flex-col gap-1 text-sm">
           {result.flags.map((f) => (
             <li key={f.message} className="flex gap-2">
               <span aria-hidden className={f.severity === "critical" ? "text-risk" : f.severity === "warning" ? "text-caution" : "text-ink-soft"}>
@@ -275,13 +275,13 @@ function TodoRow({ href, title, body, tone }: { href: string; title: string; bod
   return (
     <Link
       href={href}
-      className="group -mx-2 flex items-start justify-between gap-3 rounded-md px-2 py-1.5 outline-none hover:bg-paper focus-visible:ring-2 focus-visible:ring-ring"
+      className="group -mx-2 flex items-start justify-between gap-3 rounded-md px-2 py-2 outline-none hover:bg-surface-soft focus-visible:ring-2 focus-visible:ring-ring"
     >
       <span>
         <span className={tone === "risk" ? "font-semibold text-risk" : "font-semibold"}>{title}</span>
         <span className="block text-ink-soft">{body}</span>
       </span>
-      <ArrowUpRightIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-soft group-hover:text-ink" />
+      <ArrowUpRightIcon aria-hidden className="mt-1 size-4 shrink-0 text-ink-soft group-hover:text-ink" />
     </Link>
   );
 }

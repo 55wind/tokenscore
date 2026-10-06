@@ -78,9 +78,9 @@ export default async function PaymentsPage() {
                   <CardAction>{frozen ? <Badge variant="risk">한도 정지</Badge> : grade && <Badge variant="neutral">현재 {grade}등급</Badge>}</CardAction>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-4">
-                  <p className="num text-[30px] leading-tight font-[760] tracking-[-0.03em]">{krw(p.amount)}</p>
+                  <p className="num text-3xl leading-tight font-semibold tracking-[-0.03em]">{krw(p.amount)}</p>
                   {plan && (
-                    <dl className="grid grid-cols-2 gap-y-1.5 text-[13.5px]">
+                    <dl className="grid grid-cols-2 gap-y-2 text-sm">
                       <dt className="text-ink-soft">수수료 ({pct(line!.feeRate)})</dt>
                       <dd className="num text-right">{krw(plan.fee)}</dd>
                       <dt className="text-ink-soft">상환 총액</dt>
@@ -91,7 +91,7 @@ export default async function PaymentsPage() {
                       <dd className="num text-right">{pct(plan.revenueShare)}</dd>
                     </dl>
                   )}
-                  <p className="text-[12.5px] text-ink-soft">
+                  <p className="text-xs text-ink-soft">
                     요청 {names.user.get(p.requestedBy) ?? "-"}, 회사 승인 {p.approvedBy ? (names.user.get(p.approvedBy) ?? "-") : "-"} ({dateKo(p.approvedAt)})
                     {p.memo ? `. 메모: ${p.memo}` : ""}
                   </p>
@@ -135,7 +135,7 @@ export default async function PaymentsPage() {
           <SectionTitle className="mt-9" aside={`${waiting.length}건`}>
             회사 승인 대기
           </SectionTitle>
-          <p className="-mt-1 mb-3 text-[13.5px] text-ink-soft">구성원이 요청했고 아직 회사가 승인하지 않은 청구서입니다. 운영사는 처리할 수 없습니다.</p>
+          <p className="-mt-1 mb-3 text-sm text-ink-soft">구성원이 요청했고 아직 회사가 승인하지 않은 청구서입니다. 운영사는 처리할 수 없습니다.</p>
           <Card className="py-0">
             <PaymentTable rows={waiting} names={names} />
           </Card>
@@ -161,7 +161,7 @@ function PaymentTable({
   names: Awaited<ReturnType<typeof getNameMaps>>;
   showPaid?: boolean;
 }) {
-  if (!rows.length) return <p className="p-4 text-[13.5px] text-ink-soft">내역이 없습니다.</p>;
+  if (!rows.length) return <p className="p-4 text-sm text-ink-soft">내역이 없습니다.</p>;
   return (
     <Table>
       <TableHeader>
@@ -181,7 +181,7 @@ function PaymentTable({
             <TableCell className="pl-4 font-medium">{names.company.get(p.companyId) ?? p.companyId}</TableCell>
             <TableCell>
               {p.provider}
-              {p.rejectReason && <span className="block max-w-[30ch] text-[12.5px] whitespace-normal text-ink-soft">{p.rejectReason}</span>}
+              {p.rejectReason && <span className="block max-w-[30ch] text-xs whitespace-normal text-ink-soft">{p.rejectReason}</span>}
             </TableCell>
             <TableCell>
               <Num>{shortMonthLabel(p.billingMonth)}</Num>

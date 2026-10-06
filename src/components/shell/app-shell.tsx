@@ -21,15 +21,9 @@ import { NAV, type Portal } from "./nav-config";
 function AccountFooter({ user, orgName, portal }: { user: User; orgName: string; portal: Portal }) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2.5 px-1">
-        <span
-          aria-hidden
-          className="grid size-8 shrink-0 place-items-center rounded-md bg-sidebar-accent text-[13px] font-semibold text-sidebar-accent-foreground"
-        >
-          {user.name.slice(0, 1)}
-        </span>
+      <div className="px-1">
         <div className="min-w-0 leading-tight">
-          <p className="truncate text-[13px] font-semibold">{user.name}</p>
+          <p className="truncate text-sm font-semibold">{user.name}</p>
           <p className="truncate text-xs text-sidebar-foreground/70">
             {orgName} {user.title}
           </p>
@@ -77,7 +71,7 @@ function AccountFooter({ user, orgName, portal }: { user: User; orgName: string;
         </DropdownMenu>
       </div>
       {portal !== "admin" && (
-        <p className="px-1 text-[11px] leading-snug text-sidebar-foreground/70">모든 기업·수치는 공모전 시연용 가상 데이터입니다.</p>
+        <p className="px-1 text-xs leading-snug text-sidebar-foreground/70">모든 기업·수치는 공모전 시연용 가상 데이터입니다.</p>
       )}
     </div>
   );
@@ -103,7 +97,7 @@ export function AppShell({
       <aside className="sticky top-0 hidden h-dvh flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
         <div className="flex h-14 items-center justify-between px-4">
           <Brand tone={portal === "admin" ? "light" : "ink"} />
-          <span className="rounded-[5px] border border-sidebar-border px-1.5 text-[11px] leading-5 font-medium text-sidebar-foreground/70">
+          <span className="rounded-[5px] border border-sidebar-border px-2 text-xs leading-5 font-medium text-sidebar-foreground/70">
             {NAV[portal].title}
           </span>
         </div>
@@ -114,7 +108,7 @@ export function AppShell({
       </aside>
 
       <div className="min-w-0">
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-paper/90 px-4 backdrop-blur lg:hidden">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-canvas px-4 lg:hidden">
           <Brand />
           <MobileNav portal={portal} counts={counts} footer={footer} />
         </header>

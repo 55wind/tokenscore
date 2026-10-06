@@ -83,7 +83,7 @@ export default async function ModelPage() {
           </TableBody>
         </Table>
       </Card>
-      <p className="mt-2 text-[12.5px] text-ink-soft">현재 승인 한도가 산정 한도보다 크면 빨간색으로 표시합니다. 한도 재조정이나 정지를 검토할 대상입니다.</p>
+      <p className="mt-2 text-xs text-ink-soft">현재 승인 한도가 산정 한도보다 크면 빨간색으로 표시합니다. 한도 재조정이나 정지를 검토할 대상입니다.</p>
 
       <Card className="mt-9">
         <CardHeader>

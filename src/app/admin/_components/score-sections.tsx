@@ -26,7 +26,7 @@ export function ScoreBreakdown({ result }: { result: ScoreResult }) {
               <p className="font-semibold">
                 {sub.label} <span className="font-normal text-ink-soft">가중치 {pct(sub.weight, 0)}</span>
               </p>
-              <p className="num text-[13.5px]">
+              <p className="num text-sm">
                 <span className="font-semibold">{sub.score}</span>
                 <span className="text-ink-soft"> / 100, {sub.points}점 반영</span>
               </p>
@@ -34,12 +34,12 @@ export function ScoreBreakdown({ result }: { result: ScoreResult }) {
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted" aria-hidden>
               <div className="h-full rounded-full bg-ink/70" style={{ width: `${sub.score}%` }} />
             </div>
-            <dl className="grid gap-x-6 gap-y-1 text-[13px] sm:grid-cols-2">
+            <dl className="grid gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
               {sub.metrics.map((m) => (
                 <div key={m.label} className="flex items-baseline justify-between gap-3">
                   <dt className="text-ink-soft">
                     {m.label}
-                    {m.note && <span className="block text-[11.5px] text-ink-soft">{m.note}</span>}
+                    {m.note && <span className="block text-xs text-ink-soft">{m.note}</span>}
                   </dt>
                   <dd className="num shrink-0 font-medium">{m.value}</dd>
                 </div>
@@ -47,7 +47,7 @@ export function ScoreBreakdown({ result }: { result: ScoreResult }) {
             </dl>
           </div>
         ))}
-        <div className="flex flex-col gap-1.5 border-t border-line pt-4 text-[13.5px]">
+        <div className="flex flex-col gap-2 border-t border-line pt-4 text-sm">
           <p className="font-semibold">가점</p>
           {result.bonusPoints.length ? (
             result.bonusPoints.map((b) => (
@@ -83,32 +83,32 @@ export function LimitFormula({ result, config }: { result: ScoreResult; config: 
     },
   ];
   return (
-    <div className="flex flex-col gap-2 text-[13.5px]">
+    <div className="flex flex-col gap-2 text-sm">
       {rows.map((r) => (
         <div
           key={r.key}
           className={cn(
-            "flex flex-col gap-0.5 rounded-md border px-3 py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4",
-            result.limit.binding === r.key ? "border-money/40 bg-money-soft/50" : "border-line",
+            "flex flex-col gap-1 rounded-md border px-3 py-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4",
+            result.limit.binding === r.key ? "border-primary bg-primary-soft" : "border-line",
           )}
         >
           <span>
             <span className="font-semibold">{r.label}</span>
             {result.limit.binding === r.key && <span className="font-semibold text-ink"> (적용)</span>}
-            <span className="block text-[12.5px] text-ink-soft">{r.formula}</span>
+            <span className="block text-xs text-ink-soft">{r.formula}</span>
           </span>
           <Num className="shrink-0 font-semibold">{krw(r.value)}</Num>
         </div>
       ))}
-      <p className="text-[12.5px] text-ink-soft">작은 쪽을 100만원 단위로 내림해 산정 한도로 씁니다.</p>
+      <p className="text-xs text-ink-soft">작은 쪽을 100만원 단위로 내림해 산정 한도로 씁니다.</p>
     </div>
   );
 }
 
 export function FlagList({ flags }: { flags: ScoreResult["flags"] }) {
-  if (!flags.length) return <p className="text-[13.5px] text-ink-soft">특이사항이 없습니다.</p>;
+  if (!flags.length) return <p className="text-sm text-ink-soft">특이사항이 없습니다.</p>;
   return (
-    <ul className="flex flex-col gap-2 text-[13.5px]">
+    <ul className="flex flex-col gap-2 text-sm">
       {flags.map((f) => (
         <li key={f.message} className="flex items-start gap-2">
           <SeverityBadge severity={f.severity} />
@@ -131,7 +131,7 @@ export function WorkloadTable({ result, months }: { result: ScoreResult; months:
         <CardDescription>엔드포인트 트래픽과 가동 일수로 추론과 학습을 나눕니다. 한도에는 유료 추론만 들어갑니다.</CardDescription>
       </CardHeader>
       {rows.length === 0 ? (
-        <CardContent className="pb-4 text-[13.5px] text-ink-soft">GPU 사용 기록이 없습니다. API형 기업입니다.</CardContent>
+        <CardContent className="pb-4 text-sm text-ink-soft">GPU 사용 기록이 없습니다. API형 기업입니다.</CardContent>
       ) : (
         <Table>
           <TableHeader>
@@ -153,7 +153,7 @@ export function WorkloadTable({ result, months }: { result: ScoreResult; months:
                 </TableCell>
                 <TableCell>
                   <span className="font-medium">{w.name}</span>
-                  <span className="block text-[12.5px] text-ink-soft">
+                  <span className="block text-xs text-ink-soft">
                     {w.provider}, {w.gpuType} × {w.gpuCount}
                   </span>
                 </TableCell>
@@ -162,7 +162,7 @@ export function WorkloadTable({ result, months }: { result: ScoreResult; months:
                     {CLASS_LABEL[w.classification]}
                   </Badge>
                 </TableCell>
-                <TableCell className="max-w-[30ch] text-[12.5px] whitespace-normal text-ink-soft">{w.reason}</TableCell>
+                <TableCell className="max-w-[30ch] text-xs whitespace-normal text-ink-soft">{w.reason}</TableCell>
                 <TableCell className="text-right">
                   <Num>{hours(w.gpuHours)}</Num>
                 </TableCell>
@@ -170,7 +170,7 @@ export function WorkloadTable({ result, months }: { result: ScoreResult; months:
                   <Num>{krw(w.cost)}</Num>
                 </TableCell>
                 <TableCell className="pr-4">
-                  {w.counted ? <span className="font-semibold text-ink">반영</span> : <span className="text-[12.5px] text-ink-soft">제외: {w.excludedBecause}</span>}
+                  {w.counted ? <span className="font-semibold text-ink">반영</span> : <span className="text-xs text-ink-soft">제외: {w.excludedBecause}</span>}
                 </TableCell>
               </TableRow>
             ))}
@@ -216,10 +216,10 @@ export function MonthlyTable({ result }: { result: ScoreResult }) {
                 <Num>{krw(m.inferenceGpuCost)}</Num>
               </TableCell>
               <TableCell className="text-right">
-                <Num className="font-semibold text-compute">{krw(m.computeCost)}</Num>
+                <Num className="font-semibold text-ink">{krw(m.computeCost)}</Num>
               </TableCell>
               <TableCell className="text-right">
-                <Num className="font-semibold text-money-strong">{krw(m.revenue)}</Num>
+                <Num className="font-semibold text-ink">{krw(m.revenue)}</Num>
               </TableCell>
               <TableCell className="text-right">
                 <Num className="text-ink-soft">{krw(m.excluded.training + m.excluded.ambiguous)}</Num>
@@ -255,7 +255,7 @@ export function CompanyProfile({
         <CardTitle>기업 정보</CardTitle>
         <CardDescription>{company.description}</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-5 text-[13.5px]">
+      <CardContent className="flex flex-col gap-5 text-sm">
         <dl className="grid grid-cols-2 gap-x-4 gap-y-2">
           <dt className="text-ink-soft">대표</dt>
           <dd>{company.ceoName}</dd>
@@ -270,7 +270,7 @@ export function CompanyProfile({
         </dl>
 
         <div>
-          <p className="mb-1.5 font-semibold">정부 지원 이력</p>
+          <p className="mb-2 font-semibold">정부 지원 이력</p>
           {govPrograms.length ? (
             <ul className="flex flex-col gap-1">
               {govPrograms.map((g) => (
@@ -290,7 +290,7 @@ export function CompanyProfile({
         </div>
 
         <div>
-          <p className="mb-1.5 font-semibold">투자 유치</p>
+          <p className="mb-2 font-semibold">투자 유치</p>
           {investments.length ? (
             <ul className="flex flex-col gap-1">
               {investments.map((i) => (
@@ -310,13 +310,13 @@ export function CompanyProfile({
         </div>
 
         <div>
-          <p className="mb-1.5 font-semibold">데이터 연동</p>
-          <ul className="flex flex-col gap-1.5">
+          <p className="mb-2 font-semibold">데이터 연동</p>
+          <ul className="flex flex-col gap-2">
             {connections.map((c) => (
               <li key={c.id} className="flex items-center justify-between gap-3">
                 <span className="min-w-0">
                   {c.provider} <span className="text-ink-soft">{CATEGORY_LABEL[c.category]}</span>
-                  {c.lastSyncAt && c.status === "connected" && <span className="block text-[12px] text-ink-soft">마지막 동기화 {dateKo(c.lastSyncAt)}</span>}
+                  {c.lastSyncAt && c.status === "connected" && <span className="block text-xs text-ink-soft">마지막 동기화 {dateKo(c.lastSyncAt)}</span>}
                 </span>
                 <StatusBadge kind="connection" status={c.status} />
               </li>

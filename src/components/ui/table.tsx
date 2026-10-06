@@ -5,9 +5,11 @@ import { cn } from "cn"
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
+    // 좁은 화면에서 가로로 스크롤되는 표에 키보드로도 들어가 화살표로 스크롤할 수 있게 합니다.
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto"
+      tabIndex={0}
+      className="relative w-full overflow-x-auto rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
     >
       <table
         data-slot="table"

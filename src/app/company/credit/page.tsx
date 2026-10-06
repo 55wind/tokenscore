@@ -50,24 +50,24 @@ export default async function CreditPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <dl className="grid grid-cols-2 gap-5 text-[13.5px] sm:grid-cols-4">
+            <dl className="grid grid-cols-2 gap-5 text-sm sm:grid-cols-4">
               <div>
                 <dt className="text-ink-soft">승인 한도</dt>
-                <dd className="num text-[20px] font-[720]">{krw(line.limit)}</dd>
+                <dd className="num text-xl font-semibold">{krw(line.limit)}</dd>
               </div>
               <div>
                 <dt className="text-ink-soft">남은 한도</dt>
-                <dd className="num text-[20px] font-[720] text-money-strong">{krw(line.available)}</dd>
+                <dd className="num text-xl font-semibold text-ink">{krw(line.available)}</dd>
               </div>
               <div>
                 <dt className="text-ink-soft">승인 당시 등급</dt>
-                <dd className="text-[20px] font-[720]">
-                  {line.line.grade}등급 <span className="num text-[13px] font-normal text-ink-soft">{line.line.score}점</span>
+                <dd className="text-xl font-semibold">
+                  {line.line.grade}등급 <span className="num text-sm font-normal text-ink-soft">{line.line.score}점</span>
                 </dd>
               </div>
               <div>
                 <dt className="text-ink-soft">수수료, 상환 기간</dt>
-                <dd className="num text-[20px] font-[720]">
+                <dd className="num text-xl font-semibold">
                   {pct(line.line.feeRate)}, {line.line.termMonths}개월
                 </dd>
               </div>
@@ -96,13 +96,13 @@ export default async function CreditPage() {
                 defaultPurpose={result.flags.some((f) => f.message.includes("졸업 브릿지")) ? "정부 GPU 지원 종료 후 늘어나는 GPU·LLM 비용 선결제" : "LLM·GPU 클라우드 청구서 선결제"}
               />
             ) : (
-              <ul className="flex flex-col gap-3 text-[13.5px]">
+              <ul className="flex flex-col gap-3 text-sm">
                 {checks.map((c) => (
-                  <li key={c.label} className="flex items-start gap-2.5">
+                  <li key={c.label} className="flex items-start gap-3">
                     {c.ok ? (
-                      <CheckIcon aria-label="충족" className="mt-0.5 size-4 shrink-0 text-money" />
+                      <CheckIcon aria-label="충족" className="mt-1 size-4 shrink-0 text-positive" />
                     ) : (
-                      <XIcon aria-label="미충족" className="mt-0.5 size-4 shrink-0 text-risk" />
+                      <XIcon aria-label="미충족" className="mt-1 size-4 shrink-0 text-risk" />
                     )}
                     <span>
                       <span className="font-medium">{c.label}</span>
@@ -126,7 +126,7 @@ export default async function CreditPage() {
           <CardHeader>
             <CardTitle>심사 기준</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col gap-3 text-[13.5px] text-ink-soft">
+          <CardContent className="flex flex-col gap-3 text-sm text-ink-soft">
             <p>
               한도 = min(최근 3개월 평균 유료 컴퓨트 × {config.computeMultiple} × 등급계수, 최근 3개월 평균 매출 × {config.revenueMultiple})
             </p>
@@ -141,7 +141,7 @@ export default async function CreditPage() {
               </TableHeader>
               <TableBody>
                 {(["A", "B", "C", "D", "E"] as const).map((g) => (
-                  <TableRow key={g} className={scored && result.grade === g ? "bg-money-soft/60 font-semibold text-ink" : undefined}>
+                  <TableRow key={g} className={scored && result.grade === g ? "bg-primary-soft font-semibold text-ink" : undefined}>
                     <TableCell>{g}</TableCell>
                     <TableCell className="num text-right">{g === "E" ? `${config.cutoffs.D} 미만` : `${config.cutoffs[g]} 이상`}</TableCell>
                     <TableCell className="num text-right">{config.coefficients[g].toFixed(2)}</TableCell>
@@ -183,7 +183,7 @@ export default async function CreditPage() {
                     <TableCell>
                       <StatusBadge kind="application" status={a.status} />
                     </TableCell>
-                    <TableCell className="max-w-[280px] pr-5 text-[12.5px] whitespace-normal text-ink-soft">
+                    <TableCell className="max-w-[280px] pr-5 text-xs whitespace-normal text-ink-soft">
                       {a.decisionNote ?? (a.status === "submitted" ? "심사역이 공급사 데이터를 확인하고 있습니다." : "-")}
                     </TableCell>
                   </TableRow>
@@ -191,7 +191,7 @@ export default async function CreditPage() {
               </TableBody>
             </Table>
           ) : (
-            <p className="px-5 py-6 text-[13.5px] text-ink-soft">아직 신청한 적이 없습니다.</p>
+            <p className="px-5 py-6 text-sm text-ink-soft">아직 신청한 적이 없습니다.</p>
           )}
         </CardContent>
       </Card>

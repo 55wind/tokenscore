@@ -42,18 +42,18 @@ export default async function ConnectionsPage() {
               <SectionTitle aside={`${connectedCount}곳 연결`}>
                 <span id={`cat-${cat}`}>{CATEGORY_LABEL[cat]}</span>
               </SectionTitle>
-              <p className="-mt-1 mb-3 max-w-[70ch] text-[13.5px] text-ink-soft">{CATEGORY_NOTE[cat]}</p>
+              <p className="-mt-1 mb-3 max-w-[70ch] text-sm text-ink-soft">{CATEGORY_NOTE[cat]}</p>
               <Card className="py-0">
                 <CardContent className="px-0">
                   <ul className="divide-y divide-line">
                     {visible.map(({ provider, via, conn }) => (
-                      <li key={provider} className="flex flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+                      <li key={provider} className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
                         <div className="min-w-0">
-                          <p className="flex items-center gap-2 text-[14.5px] font-semibold">
+                          <p className="flex items-center gap-2 text-sm font-semibold">
                             {provider}
                             <StatusBadge kind="connection" status={conn?.status ?? "disconnected"} />
                           </p>
-                          <p className="text-[12.5px] text-ink-soft">
+                          <p className="text-xs text-ink-soft">
                             {via}
                             {conn?.account ? `, ${conn.account}` : ""}
                             {conn?.status === "connected" && conn.lastSyncAt ? `. 마지막 동기화 ${dateTimeKo(conn.lastSyncAt)}` : ""}
@@ -63,10 +63,10 @@ export default async function ConnectionsPage() {
                       </li>
                     ))}
                     {cat === "bank" && (
-                      <li className="flex flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+                      <li className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
                         <div>
-                          <p className="text-[14.5px] font-semibold">다른 은행 계좌</p>
-                          <p className="text-[12.5px] text-ink-soft">오픈뱅킹으로 연결합니다. 상환 계좌는 하나만 쓸 수 있습니다.</p>
+                          <p className="text-sm font-semibold">다른 은행 계좌</p>
+                          <p className="text-xs text-ink-soft">오픈뱅킹으로 연결합니다. 상환 계좌는 하나만 쓸 수 있습니다.</p>
                         </div>
                         <ConnectionActions
                           category="bank"

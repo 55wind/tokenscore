@@ -86,9 +86,9 @@ export default async function AdminHome() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="flex flex-col divide-y divide-line text-[13.5px]">
+            <ul className="flex flex-col divide-y divide-line text-sm">
               {recent.map((log) => (
-                <li key={log.id} className="flex flex-col gap-0.5 py-2.5 first:pt-0 last:pb-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                <li key={log.id} className="flex flex-col gap-1 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
                   <span className="min-w-0">
                     <span className="font-semibold">{log.action}</span>{" "}
                     <span className="text-ink-soft">
@@ -96,7 +96,7 @@ export default async function AdminHome() {
                       {log.detail}
                     </span>
                   </span>
-                  <span className="num shrink-0 text-[12.5px] text-ink-soft">
+                  <span className="num shrink-0 text-xs text-ink-soft">
                     {log.actorName} {dateTimeKo(log.createdAt)}
                   </span>
                 </li>
@@ -129,7 +129,7 @@ export default async function AdminHome() {
                   <Link href={`/admin/companies/${o.company.id}`} className="font-semibold underline-offset-4 hover:underline">
                     {o.company.name}
                   </Link>
-                  <span className="block text-[12.5px] text-ink-soft">{o.company.industry}</span>
+                  <span className="block text-xs text-ink-soft">{o.company.industry}</span>
                 </TableCell>
                 <TableCell>
                   <span className="flex items-center gap-2">

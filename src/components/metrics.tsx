@@ -32,19 +32,19 @@ export function Stat({
 }) {
   return (
     <div className={cn("min-w-0 sm:flex-1 sm:px-5", lead && "col-span-2 sm:flex-[1.4]")}>
-      <p className="text-[12.5px] font-medium text-ink-soft">{label}</p>
+      <p className="text-xs font-medium text-ink-soft">{label}</p>
       <p
         className={cn(
-          "mt-1 font-[720] tracking-[-0.02em] text-ink",
-          lead ? "text-[28px] leading-tight" : "text-[20px] leading-snug",
-          tone === "money" && "text-money-strong",
-          tone === "compute" && "text-compute",
+          "mt-1 font-semibold tracking-[-0.02em] text-ink",
+          lead ? "text-3xl leading-tight" : "text-xl leading-snug",
+          tone === "money" && "text-ink",
+          tone === "compute" && "text-ink",
           tone === "risk" && "text-risk",
         )}
       >
         {value}
       </p>
-      {sub && <div className="mt-0.5 text-[12.5px] text-ink-soft">{sub}</div>}
+      {sub && <div className="mt-1 text-xs text-ink-soft">{sub}</div>}
     </div>
   );
 }
@@ -64,8 +64,8 @@ export function UsageMeter({
   className?: string;
 }) {
   const ratio = max > 0 ? Math.min(1, value / max) : 0;
-  const fill = tone === "money" ? "bg-money" : tone === "compute" ? "bg-compute-fill" : "bg-risk";
-  const track = tone === "money" ? "bg-money-soft" : tone === "compute" ? "bg-compute-soft" : "bg-risk-soft";
+  const fill = tone === "money" ? "bg-primary" : tone === "compute" ? "bg-chart-1" : "bg-risk";
+  const track = tone === "money" ? "bg-primary-soft" : tone === "compute" ? "bg-surface-strong" : "bg-risk-soft";
   return (
     <div
       role="meter"
@@ -93,7 +93,7 @@ export function Delta({ ratio, goodWhenUp, className }: { ratio: number; goodWhe
   const good = (up && goodWhenUp) || (down && !goodWhenUp);
   const bad = (up && !goodWhenUp) || (down && goodWhenUp);
   return (
-    <span className={cn("num text-[12.5px] font-medium", good && "text-money", bad && "text-risk", !up && !down && "text-ink-soft", className)}>
+    <span className={cn("num text-xs font-medium", good && "text-positive", bad && "text-risk", !up && !down && "text-ink-soft", className)}>
       {up ? "▲" : down ? "▼" : "–"} {Math.abs(ratio * 100).toFixed(1)}%
     </span>
   );

@@ -41,7 +41,7 @@ export default async function MembersPage() {
                       <TableCell className="pl-5">
                         <span className="font-medium">{m.name}</span>
                         {m.id === user.id && <span className="text-ink-soft"> (나)</span>}
-                        <span className="block text-[12px] text-ink-soft">{m.title}</span>
+                        <span className="block text-xs text-ink-soft">{m.title}</span>
                       </TableCell>
                       <TableCell className="text-ink-soft">{m.email}</TableCell>
                       <TableCell>

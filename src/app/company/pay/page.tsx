@@ -45,7 +45,7 @@ export default async function PayPage() {
       ) : (
         <Card className="mb-7">
           <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[14px]">
+            <p className="text-sm">
               <span className="font-semibold">아직 승인된 한도가 없습니다.</span>{" "}
               <span className="text-ink-soft">구성원의 결제 요청은 쌓이지만, 한도가 승인돼야 결제할 수 있습니다.</span>
             </p>
@@ -66,15 +66,15 @@ export default async function PayPage() {
                 <CardContent className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div className="min-w-0">
                     <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="text-[16px] font-semibold">{p.provider}</span>
-                      <span className="num text-[20px] font-[720]">{krw(p.amount)}</span>
+                      <span className="text-lg font-semibold">{p.provider}</span>
+                      <span className="num text-xl font-semibold">{krw(p.amount)}</span>
                     </p>
-                    <p className="mt-0.5 text-[12.5px] text-ink-soft">
+                    <p className="mt-1 text-xs text-ink-soft">
                       {nameOf(p.requestedBy)}님 요청, {shortMonthLabel(p.billingMonth)} 사용분, 청구서 {p.invoiceNo}, 납부 기한 {p.dueDate}
                     </p>
-                    {p.memo && <p className="mt-1 text-[13px]">{p.memo}</p>}
+                    {p.memo && <p className="mt-1 text-sm">{p.memo}</p>}
                     {tooBig && (
-                      <p className="mt-1 text-[12.5px] font-medium text-risk">
+                      <p className="mt-1 text-xs font-medium text-risk">
                         {line ? `남은 한도 ${krw(line.available)}보다 큰 금액이라 승인할 수 없습니다.` : "한도가 승인되면 결제할 수 있습니다."}
                       </p>
                     )}
@@ -153,7 +153,7 @@ export default async function PayPage() {
                   <TableRow key={p.id}>
                     <TableCell className="pl-5 font-medium">
                       {p.provider}
-                      <span className="block text-[12px] font-normal text-ink-soft">{p.invoiceNo}</span>
+                      <span className="block text-xs font-normal text-ink-soft">{p.invoiceNo}</span>
                     </TableCell>
                     <TableCell>{shortMonthLabel(p.billingMonth)}</TableCell>
                     <TableCell className="num text-right">{krw(p.amount)}</TableCell>
@@ -162,14 +162,14 @@ export default async function PayPage() {
                     <TableCell>{p.paidAt ? dateKo(p.paidAt) : "-"}</TableCell>
                     <TableCell className="pr-5">
                       <StatusBadge kind="payment" status={p.status} />
-                      {p.rejectReason && <span className="block text-[12px] text-ink-soft">{p.rejectReason}</span>}
+                      {p.rejectReason && <span className="block text-xs text-ink-soft">{p.rejectReason}</span>}
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           ) : (
-            <p className="px-5 py-6 text-[13.5px] text-ink-soft">아직 결제한 청구서가 없습니다.</p>
+            <p className="px-5 py-6 text-sm text-ink-soft">아직 결제한 청구서가 없습니다.</p>
           )}
         </CardContent>
       </Card>

@@ -8,7 +8,7 @@ export function PageSkeleton() {
   return (
     <div aria-busy="true" aria-live="polite">
       <span className="sr-only">불러오는 중입니다</span>
-      <div className="mb-7 flex flex-col gap-2.5">
+      <div className="mb-7 flex flex-col gap-3">
         <Skeleton className="h-8 w-48" />
         <Skeleton className="h-4 w-full max-w-[520px]" />
       </div>

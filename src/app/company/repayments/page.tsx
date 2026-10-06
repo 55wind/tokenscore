@@ -73,11 +73,11 @@ export default async function RepaymentsPage() {
                   const p = payment(r.paymentRequestId);
                   const firstOfMonth = i === 0 || rows[i - 1].dueMonth !== r.dueMonth;
                   return (
-                    <TableRow key={r.id} className={r.dueMonth === thisMonth ? "bg-money-soft/40" : undefined}>
+                    <TableRow key={r.id} className={r.dueMonth === thisMonth ? "bg-primary-soft" : undefined}>
                       <TableCell className="pl-5 font-medium">{firstOfMonth ? shortMonthLabel(r.dueMonth) : ""}</TableCell>
                       <TableCell>
                         {p?.provider}
-                        <span className="block text-[12px] text-ink-soft">
+                        <span className="block text-xs text-ink-soft">
                           {p ? `${shortMonthLabel(p.billingMonth)} 사용분, ${krw(p.amount)}` : ""}
                         </span>
                       </TableCell>
@@ -88,7 +88,7 @@ export default async function RepaymentsPage() {
                       <TableCell className="num text-right">{krw(r.expectedAmount)}</TableCell>
                       <TableCell className="num text-right">
                         <Num>{krw(r.paidAmount)}</Num>
-                        {r.paidAt && <span className="block text-[12px] text-ink-soft">{dateKo(r.paidAt)}</span>}
+                        {r.paidAt && <span className="block text-xs text-ink-soft">{dateKo(r.paidAt)}</span>}
                       </TableCell>
                       <TableCell className="pr-5">
                         <StatusBadge kind="repayment" status={r.status} />
@@ -101,7 +101,7 @@ export default async function RepaymentsPage() {
           </CardContent>
         </Card>
       ) : (
-        <p className="text-[13.5px] text-ink-soft">아직 상환할 금액이 없습니다. Compute Pay로 청구서를 결제하면 일정이 생깁니다.</p>
+        <p className="text-sm text-ink-soft">아직 상환할 금액이 없습니다. Compute Pay로 청구서를 결제하면 일정이 생깁니다.</p>
       )}
     </>
   );

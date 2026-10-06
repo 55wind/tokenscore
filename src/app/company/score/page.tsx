@@ -37,10 +37,10 @@ export default async function ScoreReportPage() {
       <Card>
         <CardContent className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-10">
           <div className="flex items-center gap-4 lg:w-60 lg:shrink-0">
-            <GradeMark grade={scored ? result.grade : "-"} className="size-12 text-[24px]" />
+            <GradeMark grade={scored ? result.grade : "-"} className="size-12 text-2xl" />
             <div>
-              <p className="text-[48px] leading-none font-[780] tracking-[-0.04em]">{scored ? result.score : "보류"}</p>
-              <p className="mt-1 text-[13px] text-ink-soft">{scored ? `1000점 만점, 등급계수 ${num(result.coefficient, 2)}` : result.insufficientReason}</p>
+              <p className="text-6xl leading-none font-medium tracking-[-0.04em]">{scored ? result.score : "보류"}</p>
+              <p className="mt-1 text-sm text-ink-soft">{scored ? `1000점 만점, 등급계수 ${num(result.coefficient, 2)}` : result.insufficientReason}</p>
             </div>
           </div>
           <ScoreMeter className="flex-1" score={scored ? result.score : 0} grade={result.grade} cutoffs={config.cutoffs} muted={!scored} />
@@ -54,21 +54,21 @@ export default async function ScoreReportPage() {
             <CardHeader>
               <CardTitle className="flex items-baseline justify-between gap-3">
                 <span>
-                  {sub.label} <span className="text-[12.5px] font-normal text-ink-soft">비중 {pct(sub.weight, 0)}</span>
+                  {sub.label} <span className="text-xs font-normal text-ink-soft">비중 {pct(sub.weight, 0)}</span>
                 </span>
-                <span className="num text-[13px] font-medium text-ink-soft">
-                  <span className="text-[20px] font-[720] text-ink">{sub.score}</span> / 100, {sub.points}점 반영
+                <span className="num text-sm font-medium text-ink-soft">
+                  <span className="text-xl font-semibold text-ink">{sub.score}</span> / 100, {sub.points}점 반영
                 </span>
               </CardTitle>
               <CardDescription>{TIPS[sub.key]}</CardDescription>
             </CardHeader>
             <CardContent>
-              <dl className="flex flex-col text-[13.5px]">
+              <dl className="flex flex-col text-sm">
                 {sub.metrics.map((m) => (
                   <div key={m.label} className="flex items-baseline justify-between gap-3 border-t border-line/70 py-2">
                     <dt className="text-ink-soft">
                       {m.label}
-                      {m.note && <span className="block text-[12px]">{m.note}</span>}
+                      {m.note && <span className="block text-xs">{m.note}</span>}
                     </dt>
                     <dd className="num shrink-0 font-semibold">{m.value}</dd>
                   </div>
@@ -82,7 +82,7 @@ export default async function ScoreReportPage() {
             <CardTitle>가점</CardTitle>
             <CardDescription>정부 지원 사업 선정과 투자 유치는 외부에서 검증받은 신호로 따로 더합니다.</CardDescription>
           </CardHeader>
-          <CardContent className="text-[13.5px]">
+          <CardContent className="text-sm">
             {result.bonusPoints.length ? (
               result.bonusPoints.map((b) => (
                 <div key={b.label} className="flex justify-between border-t border-line/70 py-2">
@@ -99,25 +99,25 @@ export default async function ScoreReportPage() {
 
       <SectionTitle className="mt-9">한도 계산</SectionTitle>
       <Card>
-        <CardContent className="grid gap-5 text-[14px] md:grid-cols-3">
+        <CardContent className="grid gap-5 text-sm md:grid-cols-3">
           <div>
             <p className="text-ink-soft">컴퓨트 기준</p>
-            <p className="num text-[20px] font-[720]">{krw(result.limit.byCompute)}</p>
-            <p className="text-[12.5px] text-ink-soft">
+            <p className="num text-xl font-semibold">{krw(result.limit.byCompute)}</p>
+            <p className="text-xs text-ink-soft">
               평균 유료 컴퓨트 {krw(result.kpis.avgCompute3)} × {config.computeMultiple} × 계수 {num(result.coefficient, 2)}
             </p>
           </div>
           <div>
             <p className="text-ink-soft">매출 기준 (상한)</p>
-            <p className="num text-[20px] font-[720]">{krw(result.limit.byRevenue)}</p>
-            <p className="text-[12.5px] text-ink-soft">
+            <p className="num text-xl font-semibold">{krw(result.limit.byRevenue)}</p>
+            <p className="text-xs text-ink-soft">
               평균 매출 {krw(result.kpis.avgRevenue3)} × {config.revenueMultiple}
             </p>
           </div>
           <div>
             <p className="text-ink-soft">산정 한도 (둘 중 작은 값, 100만원 단위 내림)</p>
-            <p className="num text-[26px] font-[780] text-money-strong">{krw(result.limit.amount)}</p>
-            <p className="text-[12.5px] text-ink-soft">{result.limit.binding === "compute" ? "컴퓨트 기준이 한도를 정했습니다." : "매출 기준이 한도를 정했습니다."}</p>
+            <p className="num text-2xl font-semibold text-ink">{krw(result.limit.amount)}</p>
+            <p className="text-xs text-ink-soft">{result.limit.binding === "compute" ? "컴퓨트 기준이 한도를 정했습니다." : "매출 기준이 한도를 정했습니다."}</p>
           </div>
         </CardContent>
       </Card>
@@ -154,16 +154,16 @@ export default async function ScoreReportPage() {
                     <TableCell>{shortMonthLabel(m.month)}</TableCell>
                     <TableCell className="num text-right">
                       {krw(m.llmCost)}
-                      <span className="block text-[12px] text-ink-soft">{tokens(m.tokensM)}</span>
+                      <span className="block text-xs text-ink-soft">{tokens(m.tokensM)}</span>
                     </TableCell>
                     <TableCell className="num text-right">
                       {krw(m.inferenceGpuCost)}
-                      <span className="block text-[12px] text-ink-soft">{hours(m.inferenceGpuHours)}</span>
+                      <span className="block text-xs text-ink-soft">{hours(m.inferenceGpuHours)}</span>
                     </TableCell>
                     <TableCell className="num text-right text-ink-soft">{krw(m.excluded.training + m.excluded.ambiguous)}</TableCell>
                     <TableCell className="num text-right text-ink-soft">{krw(m.excluded.government + m.excluded.free)}</TableCell>
                     <TableCell className="num text-right text-ink-soft">{krw(m.excluded.selfReported)}</TableCell>
-                    <TableCell className="num text-right font-medium text-money-strong">{krw(m.revenue)}</TableCell>
+                    <TableCell className="num text-right font-medium text-ink">{krw(m.revenue)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -175,7 +175,7 @@ export default async function ScoreReportPage() {
       <SectionTitle className="mt-9" aside="최근 3개월">
         GPU 워크로드 판별
       </SectionTitle>
-      <p className="-mt-1 mb-3 max-w-[72ch] text-[13.5px] text-ink-soft">
+      <p className="-mt-1 mb-3 max-w-[72ch] text-sm text-ink-soft">
         API 엔드포인트로 트래픽을 받으며 한 달 내내 도는 작업은 추론, 엔드포인트 없이 며칠 동안 몰아서 도는 작업은 학습으로 봅니다. 학습은 연구개발 비용이라 한도에 넣지 않습니다.
       </p>
       <Card className="py-0">
@@ -196,7 +196,7 @@ export default async function ScoreReportPage() {
                   <TableRow key={w.id}>
                     <TableCell className="pl-5">
                       <span className="font-medium">{w.name}</span>
-                      <span className="block text-[12px] text-ink-soft">
+                      <span className="block text-xs text-ink-soft">
                         {shortMonthLabel(w.month)}, {w.provider}, {w.gpuType} × {w.gpuCount}
                       </span>
                     </TableCell>
@@ -205,9 +205,9 @@ export default async function ScoreReportPage() {
                         {w.classification === "inference" ? "추론" : w.classification === "training" ? "학습" : "판별 불가"}
                       </Badge>
                     </TableCell>
-                    <TableCell className="max-w-[260px] text-[12.5px] whitespace-normal text-ink-soft">{w.reason}</TableCell>
+                    <TableCell className="max-w-[260px] text-xs whitespace-normal text-ink-soft">{w.reason}</TableCell>
                     <TableCell className="num text-right">{krw(w.cost)}</TableCell>
-                    <TableCell className="pr-5 text-[12.5px]">
+                    <TableCell className="pr-5 text-xs">
                       {w.counted ? <span className="font-semibold text-ink">반영</span> : <span className="text-ink-soft">제외: {w.excludedBecause}</span>}
                     </TableCell>
                   </TableRow>
@@ -215,7 +215,7 @@ export default async function ScoreReportPage() {
               </TableBody>
             </Table>
           ) : (
-            <p className="px-5 py-6 text-[13.5px] text-ink-soft">GPU 클라우드 사용 기록이 없습니다. API형 기업은 토큰 사용량으로만 평가합니다.</p>
+            <p className="px-5 py-6 text-sm text-ink-soft">GPU 클라우드 사용 기록이 없습니다. API형 기업은 토큰 사용량으로만 평가합니다.</p>
           )}
         </CardContent>
       </Card>
@@ -223,10 +223,10 @@ export default async function ScoreReportPage() {
       {result.flags.length > 0 && (
         <>
           <SectionTitle className="mt-9">심사 메모</SectionTitle>
-          <ul className="flex max-w-[72ch] flex-col gap-1.5 text-[13.5px]">
+          <ul className="flex max-w-[72ch] flex-col gap-2 text-sm">
             {result.flags.map((f) => (
               <li key={f.message} className="flex items-start gap-2">
-                <Badge variant={f.severity === "critical" ? "risk" : f.severity === "warning" ? "caution" : "neutral"} className="mt-0.5">
+                <Badge variant={f.severity === "critical" ? "risk" : f.severity === "warning" ? "caution" : "neutral"} className="mt-1">
                   {f.severity === "critical" ? "위험" : f.severity === "warning" ? "주의" : "참고"}
                 </Badge>
                 {f.message}

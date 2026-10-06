@@ -45,7 +45,7 @@ export default async function CompaniesPage() {
                     <Link href={`/admin/companies/${company.id}`} className="font-semibold underline-offset-4 hover:underline">
                       {company.name}
                     </Link>
-                    <span className="block text-[12.5px] text-ink-soft">{company.industry}</span>
+                    <span className="block text-xs text-ink-soft">{company.industry}</span>
                   </TableCell>
                   <TableCell className="text-ink-soft">{BUSINESS_MODEL_LABEL[company.model]}</TableCell>
                   <TableCell>
@@ -67,7 +67,7 @@ export default async function CompaniesPage() {
                     {line && usage ? (
                       <>
                         <Num>{krw(usage.inUse)}</Num>
-                        <span className="block text-[12.5px] text-ink-soft">
+                        <span className="block text-xs text-ink-soft">
                           {krw(line.limitAmount)} 중 {pct(usage.utilization, 0)}
                         </span>
                       </>

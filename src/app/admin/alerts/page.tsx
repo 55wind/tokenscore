@@ -39,7 +39,7 @@ export default async function AlertsPage() {
           </EmptyHeader>
         </Empty>
       )}
-      {alerts.length > 0 && <p className="mb-6 text-[13.5px] text-ink-soft">확인이 필요한 위험·주의 경보 {open}건</p>}
+      {alerts.length > 0 && <p className="mb-6 text-sm text-ink-soft">확인이 필요한 위험·주의 경보 {open}건</p>}
 
       {GROUPS.map((g) => {
         const items = alerts.filter((a) => a.severity === g.severity);
@@ -47,14 +47,14 @@ export default async function AlertsPage() {
         return (
           <section key={g.severity} className="mb-9">
             <SectionTitle aside={`${items.length}건`}>{g.title}</SectionTitle>
-            <p className="-mt-1 mb-3 text-[13.5px] text-ink-soft">{g.hint}</p>
+            <p className="-mt-1 mb-3 text-sm text-ink-soft">{g.hint}</p>
             <Card className="py-0">
               <ul className="divide-y divide-line">
                 {items.map((a) => (
-                  <li key={`${a.companyId}-${a.key}`} className="flex flex-col gap-3 px-4 py-3.5 md:flex-row md:items-center md:justify-between">
-                    <div className="flex min-w-0 items-start gap-2.5">
+                  <li key={`${a.companyId}-${a.key}`} className="flex flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between">
+                    <div className="flex min-w-0 items-start gap-3">
                       <SeverityBadge severity={a.severity} />
-                      <div className="min-w-0 text-[13.5px]">
+                      <div className="min-w-0 text-sm">
                         <p>
                           <Link href={`/admin/companies/${a.companyId}`} className="font-semibold underline-offset-4 hover:underline">
                             {a.companyName}
@@ -63,7 +63,7 @@ export default async function AlertsPage() {
                         </p>
                         <p className="text-ink-soft">{a.detail}</p>
                         {a.acked && (
-                          <p className="mt-0.5 text-[12.5px] text-ink-soft">
+                          <p className="mt-1 text-xs text-ink-soft">
                             확인함 {dateTimeKo(a.acked.at)}
                             {a.acked.note ? `: ${a.acked.note}` : ""}
                           </p>

@@ -75,7 +75,7 @@ export default async function CompanyDetail({ params }: { params: Promise<{ id: 
             {scored && (
               <>
                 <p className="flex items-baseline gap-2">
-                  <span className="text-[48px] leading-none font-[780] tracking-[-0.04em]">{result.score}</span>
+                  <span className="text-6xl leading-none font-medium tracking-[-0.04em]">{result.score}</span>
                   <span className="text-ink-soft">/ 1000점</span>
                 </p>
                 <ScoreMeter score={result.score} grade={result.grade} cutoffs={config.cutoffs} />
@@ -100,13 +100,13 @@ export default async function CompanyDetail({ params }: { params: Promise<{ id: 
           {line && (
             <CardContent className="flex flex-col gap-4">
               <div>
-                <p className="text-[12.5px] text-ink-soft">사용 중</p>
-                <p className="num text-[30px] leading-tight font-[760] tracking-[-0.03em]">
-                  {krw(line.inUse)} <span className="text-[15px] font-medium text-ink-soft">/ {krw(line.limit)}</span>
+                <p className="text-xs text-ink-soft">사용 중</p>
+                <p className="num text-3xl leading-tight font-semibold tracking-[-0.03em]">
+                  {krw(line.inUse)} <span className="text-lg font-medium text-ink-soft">/ {krw(line.limit)}</span>
                 </p>
               </div>
               <UsageMeter value={line.inUse} max={line.limit} tone={line.utilization >= 0.85 ? "risk" : "money"} label="한도 사용률" />
-              <dl className="grid grid-cols-2 gap-y-2 text-[13.5px]">
+              <dl className="grid grid-cols-2 gap-y-2 text-sm">
                 <dt className="text-ink-soft">남은 한도</dt>
                 <dd className="num text-right font-medium">{krw(line.available)}</dd>
                 <dt className="text-ink-soft">집행 대기</dt>
@@ -144,13 +144,13 @@ export default async function CompanyDetail({ params }: { params: Promise<{ id: 
         경보와 확인할 점
       </SectionTitle>
       {alerts.length ? (
-        <ul className="flex flex-col gap-2 text-[13.5px]">
+        <ul className="flex flex-col gap-2 text-sm">
           {alerts.map((a) => (
             <li key={a.key} className="flex items-start gap-2">
               <SeverityBadge severity={a.severity} />
               <span>
                 <span className="font-semibold">{a.title}</span> <span className="text-ink-soft">{a.detail}</span>
-                {a.acked && <span className="block text-[12.5px] text-ink-soft">확인함{a.acked.note ? `: ${a.acked.note}` : ""}</span>}
+                {a.acked && <span className="block text-xs text-ink-soft">확인함{a.acked.note ? `: ${a.acked.note}` : ""}</span>}
               </span>
             </li>
           ))}
@@ -201,7 +201,7 @@ export default async function CompanyDetail({ params }: { params: Promise<{ id: 
                 <TableRow key={p.id}>
                   <TableCell className="pl-4">
                     <span className="font-medium">{p.provider}</span>
-                    <span className="num block text-[12.5px] text-ink-soft">{p.invoiceNo}</span>
+                    <span className="num block text-xs text-ink-soft">{p.invoiceNo}</span>
                   </TableCell>
                   <TableCell>
                     <Num>{shortMonthLabel(p.billingMonth)}</Num>
@@ -221,7 +221,7 @@ export default async function CompanyDetail({ params }: { params: Promise<{ id: 
             </TableBody>
           </Table>
         ) : (
-          <p className="p-4 text-[13.5px] text-ink-soft">결제 요청이 없습니다.</p>
+          <p className="p-4 text-sm text-ink-soft">결제 요청이 없습니다.</p>
         )}
       </Card>
 
@@ -263,7 +263,7 @@ export default async function CompanyDetail({ params }: { params: Promise<{ id: 
             </TableBody>
           </Table>
         ) : (
-          <p className="p-4 text-[13.5px] text-ink-soft">상환 일정이 없습니다.</p>
+          <p className="p-4 text-sm text-ink-soft">상환 일정이 없습니다.</p>
         )}
       </Card>
 

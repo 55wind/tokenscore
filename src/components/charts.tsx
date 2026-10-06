@@ -14,7 +14,8 @@ import { shortMonthLabel } from "@/lib/months";
 
 /*
  * dataviz 규칙
- * - 색은 의미별 고정: LLM chart-1, 추론 GPU chart-2, 심사 제외 GPU chart-3, 매출 chart-4 (검증기 통과)
+ * - 색은 의미별 고정 (검증기 통과): LLM chart-1 밝은 파랑, 추론 GPU chart-2 짙은 파랑, 심사 제외 GPU chart-3 주황,
+ *   매출 chart-4 초록. 매출·컴퓨트 비교에서 컴퓨트는 chart-2를 씁니다.
  * - 막대 24px 이하, 값 끝만 4px 둥글게, 누적 구간 사이 2px 바탕색 간격
  * - 선 2px, 끝 점 8px + 바탕색 링, 이중 축 금지
  * - 계열 2개 이상이면 범례, 모든 차트에 툴팁
@@ -79,7 +80,7 @@ export function RevenueComputeChart({
 }) {
   const config = {
     revenue: { label: "매출", color: "var(--chart-4)" },
-    compute: { label: "유료 컴퓨트 (토큰 + 추론 GPU)", color: "var(--chart-1)" },
+    compute: { label: "유료 컴퓨트 (토큰 + 추론 GPU)", color: "var(--chart-2)" },
   } satisfies ChartConfig;
   const rows = data.map((d) => ({ ...d, label: shortMonthLabel(d.month) }));
   const lastIdx = rows.length - 1;
@@ -97,7 +98,7 @@ export function RevenueComputeChart({
         <ChartTooltip content={<ChartTooltipContent valueFormatter={tooltipMoney} />} />
         <ChartLegend content={<ChartLegendContent />} />
         <Line dataKey="revenue" type="monotone" stroke="var(--color-revenue)" strokeWidth={2} dot={endDot("var(--chart-4)")} activeDot={{ r: 5, stroke: SURFACE, strokeWidth: 2 }} />
-        <Line dataKey="compute" type="monotone" stroke="var(--color-compute)" strokeWidth={2} dot={endDot("var(--chart-1)")} activeDot={{ r: 5, stroke: SURFACE, strokeWidth: 2 }} />
+        <Line dataKey="compute" type="monotone" stroke="var(--color-compute)" strokeWidth={2} dot={endDot("var(--chart-2)")} activeDot={{ r: 5, stroke: SURFACE, strokeWidth: 2 }} />
       </LineChart>
     </ChartContainer>
   );
@@ -136,7 +137,7 @@ export function GradeExposureChart({
   height?: number;
   title?: string;
 }) {
-  const config = { exposure: { label: "사용 중인 한도", color: "var(--chart-4)" } } satisfies ChartConfig;
+  const config = { exposure: { label: "사용 중인 한도", color: "var(--primary)" } } satisfies ChartConfig;
   return (
     <ChartContainer config={config} className="aspect-auto w-full" style={{ height }}>
       <BarChart data={data} margin={{ top: 22, right: 4, left: 4, bottom: 0 }} barCategoryGap="30%" title={title} desc="방향키로 등급을 옮기면 금액이 툴팁으로 나옵니다.">

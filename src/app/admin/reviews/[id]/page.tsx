@@ -67,7 +67,7 @@ export default async function ReviewDetail({ params }: { params: Promise<{ id: s
             {scored ? (
               <>
                 <p className="flex items-baseline gap-2">
-                  <span className="text-[48px] leading-none font-[780] tracking-[-0.04em]">{result.score}</span>
+                  <span className="text-6xl leading-none font-medium tracking-[-0.04em]">{result.score}</span>
                   <span className="text-ink-soft">/ 1000점, 등급계수 {result.coefficient}, 수수료 {pct(result.feeRate)}</span>
                 </p>
                 <ScoreMeter score={result.score} grade={result.grade} cutoffs={config.cutoffs} />
@@ -75,18 +75,18 @@ export default async function ReviewDetail({ params }: { params: Promise<{ id: s
             ) : (
               <p className="text-ink-soft">{result.insufficientReason}</p>
             )}
-            <dl className="grid grid-cols-2 gap-3 text-[13.5px] sm:grid-cols-3">
+            <dl className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
               <div>
                 <dt className="text-ink-soft">신청 금액</dt>
-                <dd className="num text-[20px] font-[700]">{krw(app.requestedAmount)}</dd>
-                <dd className="text-[12.5px] text-ink-soft">{app.termMonths}개월 상환</dd>
+                <dd className="num text-xl font-semibold">{krw(app.requestedAmount)}</dd>
+                <dd className="text-xs text-ink-soft">{app.termMonths}개월 상환</dd>
               </div>
               <div>
                 <dt className="text-ink-soft">산정 한도 (현재)</dt>
-                <dd className={`num text-[20px] font-[700] ${app.requestedAmount > result.limit.amount ? "text-risk" : "text-money-strong"}`}>
+                <dd className={`num text-xl font-semibold ${app.requestedAmount > result.limit.amount ? "text-risk" : "text-ink"}`}>
                   {krw(result.limit.amount)}
                 </dd>
-                <dd className="text-[12.5px] text-ink-soft">
+                <dd className="text-xs text-ink-soft">
                   {app.requestedAmount > result.limit.amount && <span className="font-semibold text-risk">신청액보다 적음. </span>}
                   신청 시 {krw(app.suggestedLimit)}
                 </dd>
@@ -118,7 +118,7 @@ export default async function ReviewDetail({ params }: { params: Promise<{ id: s
                 companyName={company.name}
               />
             ) : (
-              <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-[13.5px]">
+              <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
                 <dt className="text-ink-soft">결과</dt>
                 <dd>
                   <StatusBadge kind="application" status={app.status} />

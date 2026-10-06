@@ -29,16 +29,16 @@ function Steps({ p }: { p: PaymentRequest }) {
   if (p.status === "rejected") return null;
   const done = progressOf(p);
   return (
-    <ol aria-label="진행 단계" className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[12px]">
+    <ol aria-label="진행 단계" className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
       {STEPS.map((label, i) => {
         const state = i < done ? "done" : i === done ? "current" : "todo";
         return (
-          <li key={label} className="flex items-center gap-1.5">
-            {i > 0 && <span aria-hidden className={cn("h-px w-3", i <= done ? "bg-money" : "bg-line-strong")} />}
+          <li key={label} className="flex items-center gap-2">
+            {i > 0 && <span aria-hidden className={cn("h-px w-3", i <= done ? "bg-primary" : "bg-line-strong")} />}
             <span
               className={cn(
                 "inline-flex items-center gap-1",
-                state === "done" && "text-money-strong",
+                state === "done" && "text-ink",
                 state === "current" && "font-semibold text-ink",
                 state === "todo" && "text-ink-soft",
               )}
@@ -48,7 +48,7 @@ function Steps({ p }: { p: PaymentRequest }) {
                 aria-hidden
                 className={cn(
                   "size-1.5 rounded-full",
-                  state === "done" && "bg-money",
+                  state === "done" && "bg-primary",
                   state === "current" && "bg-ink",
                   state === "todo" && "bg-line-strong",
                 )}
@@ -87,23 +87,23 @@ function RequestList({
   return (
     <ul className="flex flex-col divide-y divide-line overflow-hidden rounded-xl bg-surface shadow-elev-sm">
       {items.map((p) => (
-        <li key={p.id} className="flex flex-col gap-2.5 px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-          <div className="flex min-w-0 flex-col gap-1.5">
+        <li key={p.id} className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+          <div className="flex min-w-0 flex-col gap-2">
             <div className="flex flex-wrap items-center gap-2">
               <p className="font-semibold text-ink">{p.provider}</p>
               <StatusBadge kind="payment" status={p.status} />
             </div>
-            <p className="text-[12.5px] text-ink-soft">
+            <p className="text-xs text-ink-soft">
               {monthLabel(p.billingMonth, true)} 청구, {p.invoiceNo}
               {showRequester && `, ${names.get(p.requestedBy) ?? "구성원"}님 요청`}
             </p>
-            {p.memo && <p className="text-[13px] text-ink-soft">{p.memo}</p>}
+            {p.memo && <p className="text-sm text-ink-soft">{p.memo}</p>}
             <Steps p={p} />
-            <p className={cn("text-[12.5px]", p.status === "rejected" ? "text-ink" : "text-ink-soft")}>{statusText(p, repayments)}</p>
+            <p className={cn("text-xs", p.status === "rejected" ? "text-ink" : "text-ink-soft")}>{statusText(p, repayments)}</p>
           </div>
           <div className="shrink-0 sm:text-right">
-            <Num className="text-[17px] font-[700]">{krw(p.amount)}</Num>
-            <p className="text-[12px] text-ink-soft">납부 기한 {p.dueDate.replaceAll("-", ". ")}.</p>
+            <Num className="text-lg font-semibold">{krw(p.amount)}</Num>
+            <p className="text-xs text-ink-soft">납부 기한 {p.dueDate.replaceAll("-", ". ")}.</p>
           </div>
         </li>
       ))}
@@ -147,7 +147,7 @@ export default async function RequestsPage() {
             {providers.length ? (
               <RequestForm providers={providers} defaultBillingMonth={billingMonth} defaultDueDate={dueDate} />
             ) : (
-              <p className="text-[13.5px] text-ink-soft">연동된 LLM·GPU 공급사가 없습니다. 회사 담당자에게 데이터 연동을 요청하세요.</p>
+              <p className="text-sm text-ink-soft">연동된 LLM·GPU 공급사가 없습니다. 회사 담당자에게 데이터 연동을 요청하세요.</p>
             )}
           </CardContent>
         </Card>
@@ -159,12 +159,12 @@ export default async function RequestsPage() {
               {summary ? `${summary.line.grade}등급, ${summary.line.partner} 제휴` : "아직 승인된 한도가 없습니다."}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-3 text-[13.5px]">
+          <CardContent className="flex flex-col gap-3 text-sm">
             {summary ? (
               <>
                 <div>
-                  <p className="text-[12.5px] text-ink-soft">남은 한도</p>
-                  <p className="text-[26px] leading-tight font-[760] tracking-[-0.03em] text-money-strong">{krw(summary.available)}</p>
+                  <p className="text-xs text-ink-soft">남은 한도</p>
+                  <p className="text-2xl leading-tight font-semibold tracking-[-0.03em] text-ink">{krw(summary.available)}</p>
                 </div>
                 <UsageMeter value={summary.inUse} max={summary.limit} label="한도 사용률" />
                 <p className="text-ink-soft">

@@ -45,7 +45,7 @@ export async function CostDashboard({ companyId, showRevenue = false }: { compan
           value={krw(totalSpend)}
           tone="compute"
           sub={
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-2">
               전월 대비 <Delta ratio={spendDelta} goodWhenUp={false} />
             </span>
           }
@@ -76,10 +76,10 @@ export async function CostDashboard({ companyId, showRevenue = false }: { compan
               {overBudget ? <Badge variant="risk">예산 초과 예상</Badge> : <Badge variant="neutral">예산 안</Badge>}
             </CardAction>
           </CardHeader>
-          <CardContent className="flex flex-col gap-2.5">
-            <div className="flex flex-wrap items-baseline justify-between gap-2 text-[13.5px]">
+          <CardContent className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
               <span className="text-ink-soft">
-                예상 지출 <Num className={cn("text-[17px] font-semibold text-ink", overBudget && "text-risk")}>{krw(projected)}</Num>
+                예상 지출 <Num className={cn("text-lg font-semibold text-ink", overBudget && "text-risk")}>{krw(projected)}</Num>
               </span>
               <span className="text-ink-soft">
                 예산 <Num className="font-medium text-ink">{krw(budget)}</Num>
@@ -87,7 +87,7 @@ export async function CostDashboard({ companyId, showRevenue = false }: { compan
             </div>
             <UsageMeter value={projected} max={budget} tone={overBudget ? "risk" : "compute"} label="이번 달 예산 대비 예상 지출" />
             {overBudget && (
-              <p className="text-[13px] text-ink-soft">
+              <p className="text-sm text-ink-soft">
                 예산보다 {krw(projected - budget)} 더 나갈 전망입니다. 절감 제안을 확인하거나 Compute Pay로 결제 시점을 늦출 수 있습니다.
               </p>
             )}
@@ -141,8 +141,8 @@ export async function CostDashboard({ companyId, showRevenue = false }: { compan
                   <TableRow key={line.key}>
                     <TableCell className="max-w-[180px] whitespace-normal sm:max-w-[280px] sm:whitespace-nowrap">
                       <p className="font-medium text-ink sm:truncate">{line.label}</p>
-                      <p className="text-[12.5px] text-ink-soft sm:truncate">{line.sub}</p>
-                      <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[12.5px] text-ink-soft sm:hidden">
+                      <p className="text-xs text-ink-soft sm:truncate">{line.sub}</p>
+                      <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-soft sm:hidden">
                         <Badge variant={badge.variant}>{badge.label}</Badge>
                         <span>{line.usage}</span>
                       </p>
@@ -150,7 +150,7 @@ export async function CostDashboard({ companyId, showRevenue = false }: { compan
                     <TableCell className="hidden sm:table-cell">
                       <Badge variant={badge.variant}>{badge.label}</Badge>
                     </TableCell>
-                    <TableCell className="hidden text-[13px] text-ink-soft sm:table-cell">{line.usage}</TableCell>
+                    <TableCell className="hidden text-sm text-ink-soft sm:table-cell">{line.usage}</TableCell>
                     <TableCell className="text-right">
                       <Num className="font-medium">{krw(line.cost)}</Num>
                     </TableCell>
@@ -158,7 +158,7 @@ export async function CostDashboard({ companyId, showRevenue = false }: { compan
                       {line.prevCost > 0 ? (
                         <Delta ratio={line.cost / line.prevCost - 1} goodWhenUp={false} />
                       ) : (
-                        <span className="text-[12.5px] text-ink-soft">신규</span>
+                        <span className="text-xs text-ink-soft">신규</span>
                       )}
                     </TableCell>
                   </TableRow>

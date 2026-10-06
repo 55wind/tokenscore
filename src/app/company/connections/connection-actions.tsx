@@ -88,7 +88,7 @@ export function ConnectionActions({
             </SelectContent>
           </Select>
         )}
-        <ul className="flex list-disc flex-col gap-1 pl-5 text-[13.5px]">
+        <ul className="flex list-disc flex-col gap-1 pl-5 text-sm">
           {SCOPE[category].map((s) => (
             <li key={s}>{s}</li>
           ))}

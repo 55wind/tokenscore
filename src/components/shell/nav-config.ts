@@ -49,7 +49,6 @@ export const NAV: Record<Portal, { title: string; groups: { label?: string; item
         ],
       },
       {
-        label: "더 보기",
         items: [
           { href: "/company/programs", label: "정부 지원 매칭", icon: LandmarkIcon },
           { href: "/company/members", label: "구성원", icon: UsersIcon },

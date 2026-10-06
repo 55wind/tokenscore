@@ -36,19 +36,19 @@ export default async function ProgramsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <dl className="grid gap-5 text-[13.5px] sm:grid-cols-3">
+            <dl className="grid gap-5 text-sm sm:grid-cols-3">
               <div>
                 <dt className="text-ink-soft">지금 직접 내는 컴퓨트</dt>
-                <dd className="num text-[22px] font-[720]">{krw(bridge.currentPaid)}</dd>
+                <dd className="num text-xl font-semibold">{krw(bridge.currentPaid)}</dd>
               </div>
               <div>
                 <dt className="text-ink-soft">정부 지원으로 충당 중</dt>
-                <dd className="num text-[22px] font-[720] text-compute">{krw(bridge.governmentCovered)}</dd>
+                <dd className="num text-xl font-semibold text-ink">{krw(bridge.governmentCovered)}</dd>
               </div>
               <div>
                 <dt className="text-ink-soft">지원 종료 후 예상 비용 (다음 달)</dt>
-                <dd className="num text-[22px] font-[720]">{krw(bridge.projectedNext)}</dd>
-                <dd className="text-[12.5px] text-ink-soft">사용량 성장률과 단가 여유분 12%를 반영했습니다.</dd>
+                <dd className="num text-xl font-semibold">{krw(bridge.projectedNext)}</dd>
+                <dd className="text-xs text-ink-soft">사용량 성장률과 단가 여유분 12%를 반영했습니다.</dd>
               </div>
             </dl>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -83,7 +83,7 @@ export default async function ProgramsPage() {
               </CardAction>
             </CardHeader>
             <CardContent>
-              <ul className="flex list-disc flex-col gap-1 pl-5 text-[13.5px] text-ink-soft">
+              <ul className="flex list-disc flex-col gap-1 pl-5 text-sm text-ink-soft">
                 {m.reasons.map((r) => (
                   <li key={r}>{r}</li>
                 ))}
@@ -96,7 +96,7 @@ export default async function ProgramsPage() {
       {data.govPrograms.length > 0 && (
         <>
           <SectionTitle className="mt-9">수혜 이력</SectionTitle>
-          <ul className="flex flex-col gap-1.5 text-[13.5px]">
+          <ul className="flex flex-col gap-2 text-sm">
             {data.govPrograms.map((g) => (
               <li key={g.id}>
                 <span className="font-medium">{g.name}</span>{" "}
@@ -106,7 +106,7 @@ export default async function ProgramsPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-[12.5px] text-ink-soft">정부 지원 선정 이력은 TokenScore에 가점으로 반영됩니다. 지원으로 쓴 사용량 자체는 지표에 넣지 않습니다.</p>
+          <p className="mt-2 text-xs text-ink-soft">정부 지원 선정 이력은 TokenScore에 가점으로 반영됩니다. 지원으로 쓴 사용량 자체는 지표에 넣지 않습니다.</p>
         </>
       )}
     </>

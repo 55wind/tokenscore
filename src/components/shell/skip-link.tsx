@@ -3,7 +3,7 @@ export function SkipLink() {
   return (
     <a
       href="#main"
-      className="fixed top-3 left-3 z-50 -translate-y-16 rounded-md bg-ink px-3 py-2 text-[13px] font-semibold text-white shadow-elev-md transition-transform duration-150 focus-visible:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      className="fixed top-3 left-3 z-50 -translate-y-16 rounded-md bg-ink px-3 py-2 text-sm font-semibold text-white shadow-elev-md transition-transform duration-150 focus-visible:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       본문으로 건너뛰기
     </a>

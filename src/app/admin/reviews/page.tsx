@@ -60,14 +60,14 @@ export default async function ReviewsPage() {
                 <TableRow key={a.id}>
                   <TableCell className="pl-4">
                     <span className="font-semibold">{names.company.get(a.companyId) ?? a.companyId}</span>
-                    <span className="block max-w-[28ch] truncate text-[12.5px] text-ink-soft">{a.purpose}</span>
+                    <span className="block max-w-[28ch] truncate text-xs text-ink-soft">{a.purpose}</span>
                   </TableCell>
                   <TableCell>
                     <Num>{dateKo(a.createdAt)}</Num>
                   </TableCell>
                   <TableCell className="text-right">
                     <Num className="font-semibold">{krw(a.requestedAmount)}</Num>
-                    <span className="block text-[12.5px] text-ink-soft">{a.termMonths}개월 상환</span>
+                    <span className="block text-xs text-ink-soft">{a.termMonths}개월 상환</span>
                   </TableCell>
                   <TableCell className="text-right">
                     <Num className={a.requestedAmount > a.suggestedLimit ? "text-risk" : undefined}>{krw(a.suggestedLimit)}</Num>

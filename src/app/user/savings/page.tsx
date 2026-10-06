@@ -38,10 +38,10 @@ export default async function SavingsPage() {
         <>
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4 rounded-xl bg-surface px-5 py-4 shadow-elev-sm">
             <div>
-              <p className="text-[12.5px] font-medium text-ink-soft">모두 실행하면 아낄 수 있는 금액</p>
-              <p className="mt-1 text-[30px] leading-tight font-[760] tracking-[-0.03em] text-money-strong">월 {krw(total)}</p>
+              <p className="text-xs font-medium text-ink-soft">모두 실행하면 아낄 수 있는 금액</p>
+              <p className="mt-1 text-3xl leading-tight font-semibold tracking-[-0.03em] text-ink">월 {krw(total)}</p>
             </div>
-            <p className="text-[13px] text-ink-soft">
+            <p className="text-sm text-ink-soft">
               제안 <Num className="font-semibold text-ink">{savings.length}</Num>건
             </p>
           </div>
@@ -51,17 +51,17 @@ export default async function SavingsPage() {
               <li key={x.id}>
                 <Card size="sm">
                   <CardHeader>
-                    <CardTitle className="text-[15px]">{x.title}</CardTitle>
+                    <CardTitle className="text-lg">{x.title}</CardTitle>
                     <CardDescription>대상: {x.target}</CardDescription>
                     <CardAction>
                       <Badge variant={EFFORT_VARIANT[x.effort]}>난이도 {x.effort}</Badge>
                     </CardAction>
                   </CardHeader>
                   <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-                    <p className="max-w-[68ch] text-[13.5px] text-ink-soft">{x.detail}</p>
+                    <p className="max-w-[68ch] text-sm text-ink-soft">{x.detail}</p>
                     <p className="shrink-0 sm:text-right">
-                      <span className="block text-[12px] text-ink-soft">월 절감 예상</span>
-                      <Num className="text-[18px] font-[720] text-money-strong">{krw(x.monthly)}</Num>
+                      <span className="block text-xs text-ink-soft">월 절감 예상</span>
+                      <Num className="text-lg font-semibold text-ink">{krw(x.monthly)}</Num>
                     </p>
                   </CardContent>
                 </Card>

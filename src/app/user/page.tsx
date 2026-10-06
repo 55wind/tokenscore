@@ -27,7 +27,7 @@ export default async function UserHome() {
       <CostDashboard companyId={company.id} />
 
       <SectionTitle className="mt-9">심사 제외란</SectionTitle>
-      <p className="max-w-[72ch] text-[13.5px] text-ink-soft">
+      <p className="max-w-[72ch] text-sm text-ink-soft">
         TokenScore는 매출과 직접 이어지는 유료 추론 사용만 회사의 신용 평가에 씁니다. 엔드포인트 없이 며칠 동안 몰아서 도는 학습 작업, 정부 지원과 무료 크레딧으로 쓴
         사용분, 공급사가 아니라 회사가 직접 신고한 기록은 지출로는 보이지만 한도 계산에서는 빠집니다. 추론인지 학습인지 판별이 안 되는 작업도 보수적으로 뺍니다.
       </p>

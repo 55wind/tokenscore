@@ -68,7 +68,7 @@ export default async function RepaymentsPage() {
         {due.length ? (
           <RepaymentTable rows={due} names={names} provider={provider} withAction />
         ) : (
-          <p className="p-4 text-[13.5px] text-ink-soft">만기가 된 미상환 건이 없습니다.</p>
+          <p className="p-4 text-sm text-ink-soft">만기가 된 미상환 건이 없습니다.</p>
         )}
       </Card>
 
@@ -79,7 +79,7 @@ export default async function RepaymentsPage() {
         {upcoming.length ? (
           <RepaymentTable rows={upcoming} names={names} provider={provider} />
         ) : (
-          <p className="p-4 text-[13.5px] text-ink-soft">예정된 상환이 없습니다.</p>
+          <p className="p-4 text-sm text-ink-soft">예정된 상환이 없습니다.</p>
         )}
       </Card>
     </>

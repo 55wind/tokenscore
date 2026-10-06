@@ -3,8 +3,10 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 import { Slot } from "radix-ui"
 
+const DOT = "before:size-1.5 before:shrink-0 before:rounded-full before:content-['']"
+
 const badgeVariants = cva(
-  "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-[5px] border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3!",
+  "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-sm border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow,opacity] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3!",
   {
     variants: {
       variant: {
@@ -18,11 +20,12 @@ const badgeVariants = cva(
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
-        money: "bg-money-soft text-money-strong",
-        compute: "bg-compute-soft text-compute",
-        risk: "bg-risk-soft text-risk",
-        caution: "bg-caution-soft text-caution",
-        neutral: "bg-muted text-ink-soft",
+        // 상태 배지: 중립 바탕 + 상태 단어 + 작은 점 하나. 같은 색 계열로 배경·글자를 칠하지 않습니다.
+        money: `bg-surface-strong text-ink ${DOT} before:bg-positive`,
+        compute: `bg-surface-strong text-ink ${DOT} before:bg-primary`,
+        risk: `bg-surface-strong font-semibold text-risk ${DOT} before:bg-risk`,
+        caution: `bg-surface-strong text-ink ${DOT} before:bg-caution`,
+        neutral: "bg-surface-strong text-ink-soft",
       },
     },
     defaultVariants: {
